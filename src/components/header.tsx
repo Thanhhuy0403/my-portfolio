@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Download, Menu, X } from "lucide-react";
+import { LuDownload, LuMenu, LuX } from "react-icons/lu";
 
 import { nav, person } from "@/content/profile";
 import { ThemeToggle } from "./theme-toggle";
@@ -85,7 +85,7 @@ export function Header() {
           </span>
         </a>
 
-        <nav aria-label="Primary" className="hidden md:block">
+        <nav aria-label="Primary" className="hidden lg:block">
           <ul className="flex items-center gap-1 rounded-full border border-line bg-surface/60 p-1 backdrop-blur">
             {nav.map((item) => (
               <li key={item.id}>
@@ -112,18 +112,18 @@ export function Header() {
             download
             className="hidden items-center gap-2 rounded-full bg-fg px-4 py-2 text-sm font-medium text-bg transition-opacity hover:opacity-85 sm:inline-flex"
           >
-            <Download className="size-4" aria-hidden="true" />
+            <LuDownload className="size-4" aria-hidden="true" />
             Resume
           </a>
           <button
             type="button"
-            className="grid size-10 place-items-center rounded-full border border-line md:hidden"
+            className="grid size-10 place-items-center rounded-full border border-line lg:hidden"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             aria-controls="mobile-nav"
             onClick={() => setOpen((v) => !v)}
           >
-            {open ? <X className="size-5" aria-hidden="true" /> : <Menu className="size-5" aria-hidden="true" />}
+            {open ? <LuX className="size-5" aria-hidden="true" /> : <LuMenu className="size-5" aria-hidden="true" />}
           </button>
         </div>
       </div>
@@ -133,14 +133,19 @@ export function Header() {
         data-lenis-prevent
         aria-label="Mobile"
         hidden={!open}
-        className="h-[calc(100dvh-4rem)] overflow-y-auto border-t border-line bg-bg px-4 pb-10 pt-4 md:hidden"
+        className="h-[calc(100dvh-4rem)] overflow-y-auto border-t border-line bg-bg px-4 pb-10 pt-4 lg:hidden"
       >
         <ul className="flex flex-col">
           {nav.map((item, i) => (
             <li key={item.id} className="border-b border-line">
               <a
                 href={`#${item.id}`}
-                onClick={() => setOpen(false)}
+                onClick={() => {
+                  // Unlock smooth scrolling synchronously: Lenis handles the anchor in its own click
+                  // listener on window (after React's), and ignores scrollTo while it is stopped.
+                  window.dispatchEvent(new CustomEvent("scroll-lock", { detail: false }));
+                  setOpen(false);
+                }}
                 className="flex items-center justify-between py-4 font-display text-2xl font-medium"
               >
                 {item.label}
@@ -154,7 +159,7 @@ export function Header() {
           download
           className="mt-8 flex items-center justify-center gap-2 rounded-full bg-fg px-5 py-3 font-medium text-bg"
         >
-          <Download className="size-4" aria-hidden="true" />
+          <LuDownload className="size-4" aria-hidden="true" />
           Download resume
         </a>
       </nav>

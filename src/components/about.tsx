@@ -1,5 +1,5 @@
 import type React from "react";
-import { Briefcase, GraduationCap, Languages, Rocket } from "lucide-react";
+import { LuBriefcase, LuGraduationCap, LuLanguages, LuRocket } from "react-icons/lu";
 
 import { education, overview, person } from "@/content/profile";
 import { SectionHeading } from "./section-heading";
@@ -46,7 +46,7 @@ export function About() {
             <ul className="mt-5 space-y-5">
               <li className="flex gap-4">
                 <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-accent-soft text-accent">
-                  <Briefcase className="size-5" aria-hidden="true" />
+                  <LuBriefcase className="size-5" aria-hidden="true" />
                 </span>
                 <div>
                   <p className="font-medium">Embedded Software Engineer</p>
@@ -55,7 +55,7 @@ export function About() {
               </li>
               <li className="flex gap-4">
                 <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-copper-soft text-copper">
-                  <Rocket className="size-5" aria-hidden="true" />
+                  <LuRocket className="size-5" aria-hidden="true" />
                 </span>
                 <div>
                   <p className="font-medium">Co-Founder & Technical Leader</p>
@@ -68,7 +68,7 @@ export function About() {
           {/* Education */}
           <article data-reveal data-spot style={{ "--d": "160ms" } as React.CSSProperties} className="card p-6 sm:p-7">
             <h3 className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-muted">
-              <GraduationCap className="size-4" aria-hidden="true" /> Education
+              <LuGraduationCap className="size-4" aria-hidden="true" /> Education
             </h3>
             <p className="mt-4 font-medium leading-snug">{education.school}</p>
             <p className="mt-1 text-sm text-muted">{education.degree}</p>
@@ -118,7 +118,7 @@ export function About() {
               ))}
             </ul>
             <p className="mt-6 flex items-center gap-2 text-sm text-muted">
-              <Languages className="size-4 text-copper" aria-hidden="true" />
+              <LuLanguages className="size-4 text-copper" aria-hidden="true" />
               Vietnamese (native) · English — {person.toeic}
             </p>
           </article>

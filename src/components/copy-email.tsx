@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Check, Copy } from "lucide-react";
+import { LuCheck, LuCopy } from "react-icons/lu";
 
 export function CopyEmail({ email }: { email: string }) {
   const [copied, setCopied] = useState(false);
@@ -22,7 +22,7 @@ export function CopyEmail({ email }: { email: string }) {
       onClick={copy}
       className="inline-flex items-center gap-2 rounded-full border border-line-strong px-5 py-3 text-sm font-medium transition-colors hover:bg-surface-2"
     >
-      {copied ? <Check className="size-4 text-accent" aria-hidden="true" /> : <Copy className="size-4" aria-hidden="true" />}
+      {copied ? <LuCheck className="size-4 text-accent" aria-hidden="true" /> : <LuCopy className="size-4" aria-hidden="true" />}
       <span aria-live="polite">{copied ? "Copied!" : "Copy email"}</span>
     </button>
   );

@@ -1,4 +1,4 @@
-import { ArrowUpRight, GraduationCap } from "lucide-react";
+import { LuArrowUpRight, LuGraduationCap } from "react-icons/lu";
 
 import { education, experience } from "@/content/profile";
 import { SectionHeading } from "./section-heading";
@@ -38,7 +38,7 @@ export function Experience() {
                           className="inline-flex items-center gap-1 font-medium text-fg underline decoration-line-strong underline-offset-4 hover:decoration-accent"
                         >
                           {job.company}
-                          <ArrowUpRight className="size-3.5" aria-hidden="true" />
+                          <LuArrowUpRight className="size-3.5" aria-hidden="true" />
                         </a>
                       ) : (
                         job.company
@@ -81,7 +81,7 @@ export function Experience() {
             <article data-spot className="card lift flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
               <div className="flex gap-4">
                 <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-copper-soft text-copper">
-                  <GraduationCap className="size-5" aria-hidden="true" />
+                  <LuGraduationCap className="size-5" aria-hidden="true" />
                 </span>
                 <div>
                   <h3 className="font-display text-lg font-semibold sm:text-xl">{education.degree}</h3>

@@ -122,9 +122,9 @@ export const experience: Experience[] = [
     highlights: [
       "Co-founded the company (incorporated 08/2025) and lead its technical direction and product.",
       "Mentor for C/C++ and competitive programming for 2+ years, guiding students from fundamentals to contests.",
-      "Top 100 at Techfest Vietnam 2025 and Top 30 at Innovation Quest 2025.",
+      "Grew FTES to 4,000+ learners and close to 1B VND revenue in its first year; raised a 100M VND first round.",
     ],
-    tags: ["Leadership", "Mentoring", "EdTech", "C/C++", "Product"],
+    tags: ["Leadership", "Mentoring", "EdTech", "AI", "Product"],
   },
 ];
 
@@ -230,15 +230,15 @@ export const projects: Project[] = [
   },
 ];
 
-/** Technologies shown in the logo marquee (simple-icons slugs or plain text). */
-export const techMarquee = [
+/** Technologies shown in the logo strip; `icon` keys map to react-icons/si in tech-strip.tsx. */
+export const techLogos = [
   { name: "C", icon: "c" },
   { name: "C++", icon: "cplusplus" },
   { name: "STMicroelectronics", icon: "stmicroelectronics" },
   { name: "Espressif", icon: "espressif" },
   { name: "Arduino", icon: "arduino" },
-  { name: "AMD Kria", icon: "amd" },
-  { name: "Arm", icon: "arm" },
+  { name: "Kria", icon: "amd", wordmark: true },
+  { name: "Arm", icon: "arm", wordmark: true, logoOnly: true },
   { name: "Embedded Linux", icon: "linux" },
   { name: "PlatformIO", icon: "platformio" },
   { name: "TensorFlow Lite", icon: "tensorflow" },
@@ -246,6 +246,120 @@ export const techMarquee = [
   { name: "Git", icon: "git" },
   { name: "Python", icon: "python" },
 ] as const;
+
+/* ---------------- FTES startup ---------------- */
+
+const FPTU_STORY =
+  "https://daihoc.fpt.edu.vn/tin-tuc/do-an-khoi-nghiep-cua-sinh-vien-fptu-dat-doanh-thu-gan-1-ty-dong-sau-1-nam/";
+
+export type Milestone = {
+  kind: "funding" | "award" | "program" | "scholarship";
+  badge: string;
+  title: string;
+  org: string;
+  date: string;
+  description: string;
+  sources: { label: string; href: string }[];
+  /** Optional event photo (e.g. from ftes.vn/achievements). Shown above the card, opens in a lightbox. */
+  photo?: { src: StaticImageData; alt: string };
+};
+
+export const startup = {
+  name: "FTES",
+  href: "https://ftes.vn/vi",
+  tagline: "AI-learning platform for technology learners",
+  role: "Co-Founder & Technical Leader",
+  summary:
+    "FTES (First Technology Education Solution) pairs human mentors with AI tools — real-time code help, AI grading, personalised roadmaps and auto-generated quizzes — so IT students learn by building real projects.",
+  metrics: [
+    { value: "4,000+", label: "learners across 5 FPTU campuses" },
+    { value: "~1B", label: "VND revenue in the first year" },
+    { value: "100M", label: "VND raised in the first round" },
+    { value: "6", label: "startup milestones in 2025" },
+  ],
+  metricsSource: { label: "FPT University, 05/2026", href: FPTU_STORY },
+  milestones: [
+    {
+      kind: "funding",
+      badge: "100M VND",
+      title: "First funding round closed",
+      org: "Investment-connection day · Vietnam National Startup Association",
+      date: "2025",
+      description: "Raised 100 million VND in FTES’s very first fundraising round, pitching to investors and startup experts.",
+      sources: [{ label: "FTES announcement", href: "https://www.facebook.com/share/r/1CqoWaFiN8/" }],
+    },
+    {
+      kind: "award",
+      badge: "Top 100",
+      title: "Top 100 startups — TECHFEST Vietnam 2025",
+      org: "Ministry of Science & Technology · Hanoi People’s Committee",
+      date: "Dec 2025",
+      description:
+        "Named among the 100 outstanding startups at Vietnam’s national innovation & startup festival in Hanoi.",
+      sources: [
+        { label: "FTES announcement", href: "https://www.facebook.com/share/p/1DHzPpWe8W/" },
+        {
+          label: "About TECHFEST 2025",
+          href: "https://english.hanoi.gov.vn/featured-news/techfest-vietnam-2025-to-take-place-on-december-12-14-2655251204160753642.htm",
+        },
+      ],
+    },
+    {
+      kind: "award",
+      badge: "Top 4",
+      title: "Top 4 innovative startups — Gia Lai 2025",
+      org: "Gia Lai Department of Science & Technology",
+      date: "Dec 2025",
+      description:
+        "One of four startups selected to pitch for investment at the province’s 2025 innovation Demo Day.",
+      sources: [
+        {
+          label: "Báo Gia Lai",
+          href: "https://baogialai.com.vn/gia-lai-ket-noi-va-goi-von-dau-tu-cho-4-du-an-khoi-nghiep-nam-2025-post575022.html",
+        },
+      ],
+    },
+    {
+      kind: "award",
+      badge: "3rd Prize",
+      title: "Third Prize — Gia Lai Youth Startup Innovation 2025",
+      org: "Gia Lai Provincial Youth Union",
+      date: "Dec 2025",
+      description: "From 70 entries to the 10-team final, then third place overall for the FTES AI-learning platform.",
+      sources: [
+        {
+          label: "Báo Gia Lai — finalists",
+          href: "https://baogialai.com.vn/10-du-an-vao-chung-ket-cuoc-thi-thanh-nien-gia-lai-khoi-nghiep-sang-tao-post573678.html",
+        },
+        { label: "FPT University", href: FPTU_STORY },
+      ],
+    },
+    {
+      kind: "program",
+      badge: "Top 30 · 80M VND",
+      title: "Incubated startup — Innovation Quest 2025",
+      org: "Innovation & startup programme · Ho Chi Minh City",
+      date: "2025",
+      description: "Selected into the Top 30 of the incubation programme and awarded 80 million VND in sponsorship.",
+      sources: [
+        { label: "FTES announcement", href: "https://www.facebook.com/share/p/1D2j1sS8Uo/" },
+        { label: "FPT University", href: FPTU_STORY },
+      ],
+    },
+    {
+      kind: "scholarship",
+      badge: "Scholarship",
+      title: "Startup Scholarship — FPT University 2025",
+      org: "FPT University",
+      date: "2025",
+      description: "Backed by FPT University’s startup scholarship, including a 50 million VND seed grant for the project.",
+      sources: [
+        { label: "FTES announcement", href: "https://www.facebook.com/share/p/1ANtcVpcoY/" },
+        { label: "FPT University", href: FPTU_STORY },
+      ],
+    },
+  ] satisfies Milestone[] as Milestone[],
+};
 
 export type Award = {
   title: string;
@@ -257,6 +371,8 @@ export type Award = {
   team?: string;
   description: string;
   images: { src: StaticImageData; alt: string; position?: string }[];
+  /** Where a visitor can read about the competition (press, official page or organiser). */
+  links: { label: string; href: string }[];
   highlight?: boolean;
 };
 
@@ -271,6 +387,7 @@ export const awards: Award[] = [
     highlight: true,
     description:
       "Won first prize at the final round of the 5th Student Scientific Research and Startup Competition (academic year 2022–2023).",
+    links: [{ label: "Saigon International University", href: "https://siu.edu.vn" }],
     images: [
       { src: siuFirstPrize, alt: "Phan Thanh Huy holding the First Prize board at the Startup SIU 2023 final round", position: "50% 62%" },
     ],
@@ -284,6 +401,10 @@ export const awards: Award[] = [
     team: "Sysma Team",
     description:
       "Reached the final round of the AIoT application development contest hosted by Advantech (WISE-PaaS) and HCMUT, receiving the Encouragement (Fourth) Prize of 6,000,000 VND.",
+    links: [
+      { label: "Advantech InnoWorks", href: "https://page.advantech.com/innoworks" },
+      { label: "InnoWorks 2022 in Vietnam", href: "https://en.hcmute.edu.vn/ArticleId/c4d21cfe-777a-43cc-8af2-98748e3be719" },
+    ],
     images: [
       { src: innoworksCeremony, alt: "Sysma team receiving the Fourth Prize at the AIoT Developer InnoWorks 2022 final round" },
       { src: innoworksAnnouncement, alt: "Award announcement slide for Sysma team at AIoT Developer InnoWorks 2022" },
@@ -298,6 +419,7 @@ export const awards: Award[] = [
     team: "Team of 5 students",
     description:
       "Encouragement (Fourth) Prize in the 2023 Science and Technology Award for Students in Higher Education Institutions — certified by the Ministry of Education and Training and the Vietnam Fund for Supporting Technological Creations.",
+    links: [{ label: "Nhân Dân — 2023 award", href: "https://nhandan.vn/post-769324.html" }],
     images: [
       { src: vifotecCertificate, alt: "VIFOTEC certificate of merit for the 2023 student science and technology award", position: "50% 50%" },
       { src: moetCertificate, alt: "Ministry of Education and Training certificate for the 2023 student science and technology award" },
@@ -310,8 +432,9 @@ export const awards: Award[] = [
     year: 2024,
     org: "Faculty of Computer Science and Engineering, HCMUT",
     description:
-      "Voted the most popular team at the faculty’s mini-hackathon for computer science and engineering students.",
+      "Received the Most Voted Team Award at CSE MINATHON 2024, organised by the Faculty of Computer Science and Engineering.",
     images: [],
+    links: [{ label: "Faculty of CSE, HCMUT", href: "https://cse.hcmut.edu.vn" }],
   },
   {
     title: "Outstanding Student Award",
@@ -321,6 +444,7 @@ export const awards: Award[] = [
     org: "Faculty of Computer Science and Engineering, HCMUT",
     description:
       "Recognised as an outstanding student of the Faculty of Computer Science and Engineering for the 2022–2023 academic year.",
+    links: [{ label: "Faculty of CSE, HCMUT", href: "https://cse.hcmut.edu.vn" }],
     images: [
       { src: outstandingStudent, alt: "Framed Outstanding Student certificate from the HCMUT Faculty of Computer Science and Engineering", position: "50% 40%" },
     ],
@@ -348,6 +472,7 @@ export const softSkills = [
 export const nav = [
   { id: "about", label: "About" },
   { id: "experience", label: "Experience" },
+  { id: "startup", label: "Startup" },
   { id: "projects", label: "Projects" },
   { id: "awards", label: "Awards" },
   { id: "skills", label: "Skills" },

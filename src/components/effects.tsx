@@ -10,7 +10,6 @@ import type Lenis from "lenis";
  *  - [data-count] number count-up
  *  - [data-spot] pointer-tracking spotlight (sets --mx / --my)
  *  - the reading-progress bar (transform written straight to the element)
- *  - [data-offscreen] on sections out of view, which pauses their looping animations
  *  - "scroll-lock" window events (detail: boolean) so overlays can pause smooth scrolling
  * Progressive: reveal styles only apply once the inline head script sets html[data-js], so no-JS visitors see everything.
  */
@@ -51,11 +50,6 @@ export function Effects() {
       else lenis?.start();
     };
     window.addEventListener("scroll-lock", onLock);
-
-    // ---- Ambient loops start only after the page has loaded, keeping the first paint cheap ----
-    const markLoaded = () => idle(() => (root.dataset.loaded = ""));
-    if (document.readyState === "complete") markLoaded();
-    else window.addEventListener("load", markLoaded, { once: true });
 
     // ---- Scroll progress (reads layout only on scroll, never during hydration) ----
     let ticking = false;
@@ -106,16 +100,6 @@ export function Effects() {
     );
     document.querySelectorAll("[data-reveal]").forEach((el) => io.observe(el));
 
-    // ---- Pause looping animations of off-screen sections ----
-    const visibility = new IntersectionObserver((entries) => {
-      for (const entry of entries) {
-        const el = entry.target as HTMLElement;
-        if (entry.isIntersecting) delete el.dataset.offscreen;
-        else el.dataset.offscreen = "";
-      }
-    });
-    document.querySelectorAll("main > section, footer").forEach((el) => visibility.observe(el));
-
     // ---- Spotlight ----
     const onPointer = (e: PointerEvent) => {
       const card = (e.target as HTMLElement | null)?.closest<HTMLElement>("[data-spot]");
@@ -129,12 +113,10 @@ export function Effects() {
     return () => {
       disposed = true;
       if (idleId) (window.cancelIdleCallback ?? window.clearTimeout)(idleId);
-      window.removeEventListener("load", markLoaded);
       window.removeEventListener("scroll-lock", onLock);
       cancelAnimationFrame(raf);
       lenis?.destroy();
       io.disconnect();
-      visibility.disconnect();
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("pointermove", onPointer);
     };

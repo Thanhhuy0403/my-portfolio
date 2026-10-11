@@ -1,6 +1,6 @@
 "use client";
 
-import { Moon, Sun } from "lucide-react";
+import { LuMoon, LuSun } from "react-icons/lu";
 
 export function ThemeToggle() {
   function toggle() {
@@ -22,8 +22,8 @@ export function ThemeToggle() {
       aria-label="Toggle color theme"
       className="grid size-10 place-items-center rounded-full border border-line text-muted transition-colors hover:border-line-strong hover:text-fg"
     >
-      <Sun className="hidden size-[18px] dark:block" aria-hidden="true" />
-      <Moon className="size-[18px] dark:hidden" aria-hidden="true" />
+      <LuSun className="hidden size-[18px] dark:block" aria-hidden="true" />
+      <LuMoon className="size-[18px] dark:hidden" aria-hidden="true" />
     </button>
   );
 }

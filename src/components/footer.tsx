@@ -1,4 +1,4 @@
-import { ArrowUp } from "lucide-react";
+import { LuArrowUp, LuArrowUpRight } from "react-icons/lu";
 
 import { nav, person, socials } from "@/content/profile";
 
@@ -28,34 +28,29 @@ export function Footer() {
             <ul className="space-y-2">
               {socials.map((s) => (
                 <li key={s.label}>
-                  <a href={s.href} target="_blank" rel="noopener noreferrer" className="text-muted transition-colors hover:text-fg">
-                    {s.label} ↗
+                  <a href={s.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-muted transition-colors hover:text-fg">
+                    {s.label}
+                    <LuArrowUpRight className="size-3.5" aria-hidden="true" />
                   </a>
                 </li>
               ))}
               <li>
-                <a href={`mailto:${person.email}`} className="text-muted transition-colors hover:text-fg">
-                  Email ↗
+                <a href={`mailto:${person.email}`} className="inline-flex items-center gap-1 text-muted transition-colors hover:text-fg">
+                  Email
+                  <LuArrowUpRight className="size-3.5" aria-hidden="true" />
                 </a>
               </li>
             </ul>
           </div>
         </div>
-
-        <p
-          aria-hidden
-          className="mt-14 bg-gradient-to-b from-fg/15 to-transparent bg-clip-text text-center font-display text-[17vw] leading-[0.8] font-semibold tracking-[-0.05em] text-transparent select-none lg:text-[13.5rem]"
-        >
-          thanhhuy
-        </p>
       </div>
 
-      <div className="border-t border-line">
+      <div className="mt-14 border-t border-line">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-4 py-6 text-xs text-muted sm:flex-row sm:px-6">
           <p>© 2026 {person.name}. Designed &amp; built with Next.js · Hosted on Vercel.</p>
           <a href="#top" className="group inline-flex items-center gap-1.5 font-mono hover:text-accent">
             Back to top
-            <ArrowUp className="size-3.5 transition-transform group-hover:-translate-y-0.5" aria-hidden="true" />
+            <LuArrowUp className="size-3.5 transition-transform group-hover:-translate-y-0.5" aria-hidden="true" />
           </a>
         </div>
       </div>

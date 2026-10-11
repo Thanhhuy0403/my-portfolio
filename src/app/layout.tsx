@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Geist, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
-import { Effects } from "@/components/effects";
 import { person, site, socials } from "@/content/profile";
 
 const geist = Geist({
@@ -130,7 +129,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Skip to content
         </a>
-        <Effects />
         {children}
       </body>
     </html>

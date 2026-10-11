@@ -61,8 +61,11 @@ export function RoleRotator({ words }: { words: string[] }) {
               transform: state === "in" ? "translateY(0)" : state === "out" ? "translateY(-90%)" : "translateY(90%)",
               opacity: state === "in" ? 1 : 0,
               // Waiting words snap below without animating, so the next one always enters from underneath.
-              transition: state === "wait" ? "none" : `transform 900ms ${EASE}, opacity 600ms ${EASE}`,
-              transitionDelay: state === "in" ? "90ms" : "0ms",
+              // Delay lives inside the shorthand: mixing `transition` with `transitionDelay` makes React warn.
+              transition:
+                state === "wait"
+                  ? "none"
+                  : `transform 900ms ${EASE} ${state === "in" ? "90ms" : "0ms"}, opacity 600ms ${EASE} ${state === "in" ? "90ms" : "0ms"}`,
             }}
           >
             {w}

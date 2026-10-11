@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image, { type StaticImageData } from "next/image";
-import { ChevronLeft, ChevronRight, Expand, X } from "lucide-react";
+import { LuChevronLeft, LuChevronRight, LuExpand, LuX } from "react-icons/lu";
 
 type Img = { src: StaticImageData; alt: string; position?: string };
 
@@ -62,7 +62,7 @@ export function AwardGallery({
         />
         <span aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
         <span className="absolute right-3 bottom-3 inline-flex items-center gap-1.5 rounded-full bg-black/55 px-3 py-1 text-xs text-white backdrop-blur">
-          <Expand className="size-3.5" aria-hidden="true" />
+          <LuExpand className="size-3.5" aria-hidden="true" />
           {images.length > 1 ? `${images.length} photos` : "View"}
         </span>
       </button>
@@ -98,15 +98,15 @@ export function AwardGallery({
               {images.length > 1 ? (
                 <>
                   <button type="button" onClick={() => step(-1)} aria-label="Previous photo" className="grid size-10 place-items-center rounded-full bg-white/10 hover:bg-white/20">
-                    <ChevronLeft className="size-5" aria-hidden="true" />
+                    <LuChevronLeft className="size-5" aria-hidden="true" />
                   </button>
                   <button type="button" onClick={() => step(1)} aria-label="Next photo" className="grid size-10 place-items-center rounded-full bg-white/10 hover:bg-white/20">
-                    <ChevronRight className="size-5" aria-hidden="true" />
+                    <LuChevronRight className="size-5" aria-hidden="true" />
                   </button>
                 </>
               ) : null}
               <button type="button" onClick={close} aria-label="Close" className="grid size-10 place-items-center rounded-full bg-white/10 hover:bg-white/20">
-                <X className="size-5" aria-hidden="true" />
+                <LuX className="size-5" aria-hidden="true" />
               </button>
             </div>
           </div>

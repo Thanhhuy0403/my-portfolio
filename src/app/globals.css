@@ -257,40 +257,8 @@ html[data-js] [data-reveal="words"] {
     transform: scale(1);
   }
   50% {
-    opacity: 0.35;
-    transform: scale(0.75);
-  }
-}
-@keyframes marquee {
-  to {
-    transform: translate3d(-50%, 0, 0);
-  }
-}
-@keyframes ecg-scroll {
-  to {
-    transform: translate3d(-50%, 0, 0);
-  }
-}
-@keyframes float {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0);
-  }
-  50% {
-    transform: translate3d(0, -8px, 0);
-  }
-}
-@keyframes blink {
-  50% {
-    opacity: 0;
-  }
-}
-@keyframes sweep {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(100%);
+    opacity: 0.45;
+    transform: scale(0.85);
   }
 }
 @keyframes line-in {
@@ -308,20 +276,6 @@ html[data-js] [data-reveal="words"] {
     transform: scaleY(0.15);
   }
 }
-@keyframes pe-on {
-  0%,
-  100% {
-    opacity: 0;
-  }
-  40% {
-    opacity: 1;
-  }
-}
-@keyframes spin-slow {
-  to {
-    transform: rotate(360deg);
-  }
-}
 
 .animate-rise {
   animation: rise 1s var(--ease-out) both;
@@ -331,25 +285,7 @@ html[data-js] [data-reveal="words"] {
   animation: letter 1s var(--ease-out) both;
 }
 .animate-pulse-dot {
-  animation: pulse-dot 2s ease-out infinite;
-}
-.animate-marquee {
-  animation: marquee 40s linear infinite;
-}
-.animate-ecg {
-  animation: ecg-scroll 9s linear infinite;
-}
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
-.pe {
-  animation: pe-on 2.4s ease-in-out infinite;
-}
-.animate-blink {
-  animation: blink 1s steps(1) infinite;
-}
-.animate-sweep {
-  animation: sweep 2.8s var(--ease-out) infinite;
+  animation: pulse-dot 3s ease-in-out infinite;
 }
 .animate-line {
   animation: line-in 0.5s var(--ease-out) both;
@@ -358,17 +294,20 @@ html[data-js] [data-reveal="words"] {
   transform-origin: bottom;
   animation: bar 1.4s var(--ease-out) both;
 }
-.animate-spin-slow {
-  animation: spin-slow 18s linear infinite;
-}
 
-html:not([data-loaded]) :is(.animate-marquee, .animate-ecg, .animate-float, .animate-sweep, .animate-spin-slow, .pe),
-[data-offscreen] :is(.animate-marquee, .animate-ecg, .animate-float, .animate-sweep, .animate-pulse-dot, .animate-blink, .animate-spin-slow, .pe) {
-  animation-play-state: paused;
+/* Source links: a faint resting underline, with an accent line that draws in from the left */
+.link-line {
+  padding-bottom: 1px;
+  background:
+    linear-gradient(var(--accent), var(--accent)) 0 100% / 0 1px no-repeat,
+    linear-gradient(var(--line-strong), var(--line-strong)) 0 100% / 100% 1px no-repeat;
+  transition: background-size 0.45s var(--ease-out);
 }
-
-.group\/marquee:hover .animate-marquee {
-  animation-play-state: paused;
+a:hover > .link-line,
+a:focus-visible > .link-line {
+  background-size:
+    100% 1px,
+    100% 1px;
 }
 
 /* Experience timeline fills as you scroll through it */

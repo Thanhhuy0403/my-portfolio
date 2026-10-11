@@ -1,7 +1,6 @@
-import { Cpu, Droplets, Leaf, Power, Thermometer, Wifi } from "lucide-react";
+import { LuArrowLeftRight, LuChevronRight, LuCpu, LuDroplets, LuLeaf, LuPower, LuThermometer, LuWifi } from "react-icons/lu";
 
 import type { Project } from "@/content/profile";
-import { buildEcgPath } from "./ecg-trace";
 
 /**
  * Product-style UI mockups for each project, recreated from the software in the repos
@@ -43,8 +42,32 @@ function Window({
 
 /* ---------------- FPGA · ECG ---------------- */
 
-const ECG = buildEcgPath(16, 150, 60, 0.85);
-const ACTIVE = [0, 5, 10, 15, 3, 6, 9, 12];
+// Builds a repeating P-QRS-T waveform — a nod to the FPGA ECG classifier thesis.
+function buildEcgPath(beats: number, beatWidth: number, baseline: number, amp = 1) {
+  let d = `M0 ${baseline}`;
+  for (let i = 0; i < beats; i++) {
+    const x = i * beatWidth;
+    const p = (n: number) => (x + n * beatWidth).toFixed(1);
+    const y = (n: number) => (baseline + n * amp).toFixed(1);
+    d +=
+      ` L${p(0.18)} ${y(0)}` +
+      ` Q${p(0.23)} ${y(-9)} ${p(0.28)} ${y(0)}` + // P wave
+      ` L${p(0.36)} ${y(0)}` +
+      ` L${p(0.39)} ${y(8)}` + // Q
+      ` L${p(0.43)} ${y(-58)}` + // R
+      ` L${p(0.47)} ${y(16)}` + // S
+      ` L${p(0.5)} ${y(0)}` +
+      ` L${p(0.6)} ${y(0)}` +
+      ` Q${p(0.68)} ${y(-15)} ${p(0.76)} ${y(0)}` + // T wave
+      ` L${p(1)} ${y(0)}`;
+  }
+  return d;
+}
+
+// A still snapshot of the scope (6 beats across the frame) — the page stays calm.
+const ECG = buildEcgPath(6, 200, 60, 0.85);
+// PEs drawn as busy in this frame of the accelerator.
+const ACTIVE = [0, 3, 5, 6, 9, 10, 12, 15];
 
 function FpgaVisual() {
   return (
@@ -67,30 +90,25 @@ function FpgaVisual() {
           <div className="absolute inset-0 opacity-60 [background-image:linear-gradient(rgb(62_230_160/.09)_1px,transparent_1px),linear-gradient(90deg,rgb(62_230_160/.09)_1px,transparent_1px)] [background-size:20px_20px]" />
           <p className="absolute top-2.5 left-3 font-mono text-[9px] text-[#3ee6a0]/80 sm:text-[10px]">LEAD II · 25 mm/s</p>
           <div className="absolute inset-x-0 top-1/2 h-[55%] -translate-y-1/2 overflow-hidden">
-            <svg viewBox="0 0 2400 110" preserveAspectRatio="none" className="animate-ecg h-full w-[200%]" aria-hidden="true">
+            <svg viewBox="0 0 1200 110" preserveAspectRatio="none" className="h-full w-full" aria-hidden="true">
               <path d={ECG} fill="none" stroke="#3ee6a0" strokeWidth="1.8" vectorEffect="non-scaling-stroke" strokeLinejoin="round" />
             </svg>
           </div>
-          <div className="pointer-events-none absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-[#3ee6a0]/10 to-transparent animate-sweep" />
           <div className="absolute bottom-2.5 left-3 flex items-center gap-2 rounded-md border border-[#3ee6a0]/30 bg-black/40 px-2 py-1 font-mono text-[9px] text-[#3ee6a0] backdrop-blur sm:text-[10px]">
-            <span className="size-1.5 rounded-full bg-[#3ee6a0] animate-pulse-dot" /> prediction: NORMAL
+            <span className="size-1.5 rounded-full bg-[#3ee6a0]" /> prediction: NORMAL
           </div>
         </div>
         {/* Accelerator */}
         <div className="flex w-[7.5rem] flex-col gap-3 bg-surface p-3 sm:w-36">
           <p className="flex items-center gap-1.5 font-mono text-[9px] tracking-wider text-muted uppercase sm:text-[10px]">
-            <Cpu className="size-3" aria-hidden="true" /> CGRA · 16 PE
+            <LuCpu className="size-3" aria-hidden="true" /> CGRA · 16 PE
           </p>
           <div className="grid grid-cols-4 gap-1">
             {Array.from({ length: 16 }).map((_, i) => (
-              <span key={i} className="relative aspect-square overflow-hidden rounded-[3px] border border-line bg-surface-2">
-                {ACTIVE.includes(i) ? (
-                  <span
-                    className="pe absolute inset-0 bg-accent opacity-0"
-                    style={{ animationDelay: `${ACTIVE.indexOf(i) * 0.15}s` }}
-                  />
-                ) : null}
-              </span>
+              <span
+                key={i}
+                className={`aspect-square rounded-[3px] border ${ACTIVE.includes(i) ? "border-transparent bg-accent/80" : "border-line bg-surface-2"}`}
+              />
             ))}
           </div>
           <div className="space-y-1.5 font-mono text-[9px] text-muted sm:text-[10px]">
@@ -130,17 +148,19 @@ function Esp32Visual() {
       bar={
         <>
           <span className="flex items-center gap-1.5 text-accent">
-            <Wifi className="size-3" aria-hidden="true" /> connected
+            <LuWifi className="size-3" aria-hidden="true" /> connected
           </span>
           <span>LittleFS /index.html</span>
-          <span className="ml-auto">firebase ⇄ synced</span>
+          <span className="ml-auto flex items-center gap-1">
+            firebase <LuArrowLeftRight className="size-3" aria-hidden="true" /> synced
+          </span>
         </>
       }
     >
       <div className="grid h-full grid-cols-2 gap-2.5 bg-surface-2/40 p-3 sm:gap-3 sm:p-4">
         <div className="rounded-lg border border-line bg-surface p-2.5 sm:p-3">
           <p className="flex items-center gap-1.5 text-[10px] text-muted sm:text-[11px]">
-            <Thermometer className="size-3.5 text-copper" aria-hidden="true" /> Temperature
+            <LuThermometer className="size-3.5 text-copper" aria-hidden="true" /> Temperature
           </p>
           <p className="mt-1 font-display text-lg font-semibold sm:text-2xl">
             28.4<span className="text-xs text-muted sm:text-sm">°C</span>
@@ -158,7 +178,7 @@ function Esp32Visual() {
           </svg>
           <div>
             <p className="flex items-center gap-1.5 text-[10px] text-muted sm:text-[11px]">
-              <Droplets className="size-3.5 text-accent" aria-hidden="true" /> Humidity
+              <LuDroplets className="size-3.5 text-accent" aria-hidden="true" /> Humidity
             </p>
             <p className="font-display text-lg font-semibold sm:text-2xl">65%</p>
           </div>
@@ -167,13 +187,13 @@ function Esp32Visual() {
           <div className="mb-2 flex items-center justify-between">
             <p className="font-mono text-[9px] tracking-wider text-muted uppercase sm:text-[10px]">FreeRTOS tasks</p>
             <span className="flex items-center gap-1.5 rounded-full bg-accent-soft px-2 py-0.5 text-[9px] text-accent sm:text-[10px]">
-              <Power className="size-3" aria-hidden="true" /> Pump ON
+              <LuPower className="size-3" aria-hidden="true" /> Pump ON
             </span>
           </div>
           <ul className="space-y-1.5">
-            {TASKS.map((t, i) => (
+            {TASKS.map((t) => (
               <li key={t.name} className="grid grid-cols-[auto_1fr_auto] items-center gap-2 font-mono text-[9px] sm:text-[10px]">
-                <span className="size-1.5 rounded-full bg-accent animate-pulse-dot" style={{ animationDelay: `${i * 0.4}s` }} />
+                <span className="size-1.5 rounded-full bg-accent" />
                 <span className="truncate">{t.name}</span>
                 <span className="text-muted">{t.stack} B</span>
               </li>
@@ -211,11 +231,11 @@ function PlantVisual() {
       <div className="grid h-full grid-cols-[auto_1fr] gap-2.5 bg-surface-2/40 p-3 sm:gap-3 sm:p-4">
         <div className="flex w-[6.5rem] flex-col items-center justify-center rounded-lg border border-line bg-surface p-2.5 text-center sm:w-32 sm:p-3">
           <div className="relative grid size-14 place-items-center sm:size-20">
-            <svg viewBox="0 0 36 36" className="absolute inset-0 -rotate-90 animate-spin-slow [animation-duration:30s]" aria-hidden="true">
+            <svg viewBox="0 0 36 36" className="absolute inset-0 -rotate-90" aria-hidden="true">
               <circle cx="18" cy="18" r="16" fill="none" stroke="var(--accent)" strokeWidth="1" strokeDasharray="3 3" opacity="0.5" />
             </svg>
             <span className="grid size-10 place-items-center rounded-full bg-accent-soft text-accent sm:size-14">
-              <Leaf className="size-5 sm:size-7" aria-hidden="true" />
+              <LuLeaf className="size-5 sm:size-7" aria-hidden="true" />
             </span>
           </div>
           <p className="mt-2 font-display text-sm font-semibold text-accent sm:text-base">Healthy</p>
@@ -226,8 +246,12 @@ function PlantVisual() {
             <div className="flex items-center justify-between text-[10px] text-muted sm:text-[11px]">
               <span>Soil climate · 24h</span>
               <span className="flex gap-2 font-mono text-[9px]">
-                <span className="text-accent">● H</span>
-                <span className="text-copper">● T</span>
+                <span className="flex items-center gap-1 text-accent">
+                  <span className="size-1.5 rounded-full bg-accent" /> H
+                </span>
+                <span className="flex items-center gap-1 text-copper">
+                  <span className="size-1.5 rounded-full bg-copper" /> T
+                </span>
               </span>
             </div>
             <svg viewBox="0 0 220 52" className="mt-1.5 h-10 w-full sm:h-14" preserveAspectRatio="none" aria-hidden="true">
@@ -245,11 +269,12 @@ function PlantVisual() {
           <div className="flex-1 overflow-hidden rounded-lg border border-line bg-[#04110c] p-2.5 font-mono text-[9px] leading-relaxed text-[#9fb3a8] sm:p-3 sm:text-[10px]">
             {LOG.map((l, i) => (
               <p key={l.dir} className="animate-line truncate" style={{ animationDelay: `${0.3 + i * 0.35}s` }}>
-                <span className="text-[#3ee6a0]">❯</span> <span className="text-[#f2b25c]">{l.dir}</span> {l.msg}
+                <LuChevronRight className="inline size-3 -translate-y-px text-[#3ee6a0]" aria-hidden="true" /> <span className="text-[#f2b25c]">{l.dir}</span> {l.msg}
               </p>
             ))}
             <p className="text-[#3ee6a0]">
-              ❯ <span className="animate-blink">▍</span>
+              <LuChevronRight className="inline size-3 -translate-y-px" aria-hidden="true" />{" "}
+              <span className="inline-block h-[1.05em] w-[0.55em] translate-y-[0.18em] bg-[#3ee6a0]/80" />
             </p>
           </div>
         </div>

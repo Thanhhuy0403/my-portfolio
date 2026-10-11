@@ -1,8 +1,8 @@
 import Image from "next/image";
-import { ArrowUpRight } from "lucide-react";
+import { LuArrowUpRight } from "react-icons/lu";
+import { SiGithub } from "react-icons/si";
 
 import { projects, type Project } from "@/content/profile";
-import { GithubIcon } from "./brand-icons";
 import { ProjectVisual } from "./project-visuals";
 import { SectionHeading } from "./section-heading";
 
@@ -86,10 +86,10 @@ function CaseStudy({ project, index }: { project: Project; index: number }) {
             rel="noopener noreferrer"
             className="group/btn inline-flex items-center gap-2 rounded-full bg-fg px-5 py-2.5 text-sm font-medium text-bg transition-transform duration-300 hover:-translate-y-0.5"
           >
-            <GithubIcon className="size-4" />
+            <SiGithub className="size-4" aria-hidden="true" />
             View source
             <span className="sr-only"> of {project.title} on GitHub</span>
-            <ArrowUpRight className="size-4 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" aria-hidden="true" />
+            <LuArrowUpRight className="size-4 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" aria-hidden="true" />
           </a>
           <ul className="flex flex-wrap gap-1.5" aria-label="Tech stack">
             {project.stack.slice(0, 5).map((s) => (
@@ -110,7 +110,7 @@ export function Projects() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
           id="projects-title"
-          index="03"
+          index="04"
           eyebrow="Selected work"
           title="From sensor to silicon."
           description="Three embedded systems built end-to-end — drivers, real-time firmware, hardware acceleration and the software around them."

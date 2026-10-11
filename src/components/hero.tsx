@@ -1,11 +1,10 @@
 import type { CSSProperties } from "react";
 import Image from "next/image";
-import { ArrowDown, ArrowUpRight, Download, MapPin } from "lucide-react";
+import { LuArrowUpRight, LuDownload, LuMapPin } from "react-icons/lu";
 
 import portrait from "@/assets/profile.jpg";
 import { person, socials, stats } from "@/content/profile";
 import { SocialIcon } from "./brand-icons";
-import { EcgTrace } from "./ecg-trace";
 import { RoleRotator } from "./role-rotator";
 
 const ROLES = ["bare-metal drivers", "FreeRTOS firmware", "FPGA accelerators", "IoT systems"];
@@ -15,7 +14,7 @@ const BOOT = [
   { t: "0.012", tag: "hw", msg: "STM32 · ESP32 · KV260 ok" },
   { t: "0.031", tag: "rtos", msg: "scheduler started" },
   { t: "0.058", tag: "fpga", msg: "CGRA ready · 16 PE" },
-  { t: "0.074", tag: "net", msg: "open to collaborate ✓" },
+  { t: "0.074", tag: "net", msg: "open to collaborate · ok" },
 ];
 
 const NAME = ["Phan", "Thanh", "Huy"];
@@ -36,7 +35,7 @@ function Letters() {
 
 export function Hero() {
   return (
-    <section id="top" aria-labelledby="hero-title" className="relative isolate overflow-hidden pt-28 sm:pt-36">
+    <section id="top" aria-labelledby="hero-title" className="relative isolate overflow-hidden pt-28 pb-16 sm:pt-36 sm:pb-24">
       {/* Background */}
       <div aria-hidden className="bg-grid absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,black,transparent)]" />
       <div aria-hidden className="glow absolute -top-48 left-1/2 -z-10 h-[42rem] w-[64rem] -translate-x-1/2" />
@@ -84,14 +83,14 @@ export function Hero() {
             >
               <span aria-hidden className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/35 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
               View my work
-              <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
+              <LuArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
             </a>
             <a
               href={person.cv}
               download
               className="inline-flex items-center gap-2 rounded-full border border-line-strong bg-surface/60 px-6 py-3.5 font-medium backdrop-blur transition-colors hover:bg-surface"
             >
-              <Download className="size-4" aria-hidden="true" />
+              <LuDownload className="size-4" aria-hidden="true" />
               Download CV
             </a>
             <ul className="flex items-center gap-1 sm:ml-1" aria-label="Social profiles">
@@ -112,12 +111,12 @@ export function Hero() {
           </div>
 
           <p className="animate-rise mt-8 flex items-center gap-2 font-mono text-xs text-muted [animation-delay:640ms]">
-            <MapPin className="size-3.5 text-copper" aria-hidden="true" />
+            <LuMapPin className="size-3.5 text-copper" aria-hidden="true" />
             {person.location}
           </p>
         </div>
 
-        {/* Portrait mounted like a chip, with a live serial monitor */}
+        {/* Portrait mounted like a chip, with a serial monitor */}
         <div className="relative mx-auto w-full max-w-[19rem] sm:max-w-sm lg:mr-0">
           <div aria-hidden className="glow absolute -inset-12 -z-10" />
           <div aria-hidden className="absolute inset-y-12 -left-3 flex flex-col justify-between">
@@ -147,27 +146,21 @@ export function Hero() {
             <div className="flex items-center justify-between px-2 pt-3 pb-1 font-mono text-[11px] text-muted">
               <span>U1 · PTH-2004</span>
               <span className="flex items-center gap-1.5">
-                <span className="animate-pulse-dot size-1.5 rounded-full bg-accent" /> online
+                <span className="size-1.5 rounded-full bg-accent" /> online
               </span>
             </div>
           </div>
 
-          {/* Floating chips */}
-          <span aria-hidden className="animate-float absolute -top-4 -left-4 rounded-xl border border-line bg-surface px-3 py-1.5 font-mono text-xs shadow-xl sm:-left-10">
-            <span className="text-accent">#include</span> &lt;stm32f1xx.h&gt;
-          </span>
-          <span aria-hidden className="animate-float absolute top-1/3 -right-4 rounded-xl border border-line bg-surface px-3 py-1.5 font-mono text-xs shadow-xl [animation-delay:-2s] sm:-right-10">
-            xTaskCreate<span className="text-copper">()</span>
-          </span>
-
           {/* Serial monitor */}
           <div
             aria-hidden
-            className="animate-float absolute -bottom-14 -left-3 w-[16.5rem] rounded-xl border border-white/10 bg-[#050a08] p-3 font-mono text-[10.5px] leading-[1.7] text-[#a9bcb1] shadow-2xl shadow-black/40 [animation-delay:-4s] sm:-left-16 sm:w-[19rem]"
+            className="absolute -bottom-14 -left-3 w-[16.5rem] rounded-xl border border-white/10 bg-[#050a08] p-3 font-mono text-[10.5px] leading-[1.7] text-[#a9bcb1] shadow-2xl shadow-black/40 sm:-left-16 sm:w-[19rem]"
           >
             <div className="mb-1.5 flex items-center justify-between text-[9.5px] text-[#6f8278]">
               <span>/dev/ttyUSB0 · 115200</span>
-              <span className="text-[#3ee6a0]">● RX</span>
+              <span className="flex items-center gap-1.5 text-[#3ee6a0]">
+                <span className="size-1.5 rounded-full bg-[#3ee6a0]" /> RX
+              </span>
             </div>
             {BOOT.map((l, i) => (
               <p key={l.tag} className="animate-line truncate" style={{ animationDelay: `${0.8 + i * 0.28}s` } as CSSProperties}>
@@ -175,7 +168,7 @@ export function Hero() {
               </p>
             ))}
             <p className="text-[#3ee6a0]">
-              $ <span className="animate-blink">▍</span>
+              $ <span className="inline-block h-[1.05em] w-[0.55em] translate-y-[0.18em] bg-[#3ee6a0]/80" />
             </p>
           </div>
         </div>
@@ -202,17 +195,6 @@ export function Hero() {
             );
           })}
         </dl>
-      </div>
-
-      <div className="relative mt-10">
-        <EcgTrace className="h-16 w-full opacity-70 sm:h-20" />
-        <a
-          href="#about"
-          aria-label="Scroll to About"
-          className="absolute top-1/2 left-1/2 grid size-10 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-line bg-bg text-muted transition-colors hover:text-accent"
-        >
-          <ArrowDown className="animate-float size-4 [animation-duration:2.4s]" aria-hidden="true" />
-        </a>
       </div>
     </section>
   );

@@ -27,8 +27,8 @@ Toàn bộ nội dung nằm trong **một file duy nhất**: `src/content/profil
 
 ## Motion & hiệu năng
 
-- `src/components/effects.tsx` — một client island duy nhất: Lenis smooth scroll (lazy-load khi trình duyệt rảnh), reveal theo viewport, count-up, spotlight theo con trỏ, thanh tiến trình đọc, tạm dừng animation khi section ra khỏi màn hình.
-- Mọi animation chỉ dùng `transform`/`opacity` (chạy trên GPU) và tự tắt khi người dùng bật *Reduce motion*.
+- `src/components/effects.tsx` — một client island duy nhất: Lenis smooth scroll (lazy-load khi trình duyệt rảnh), reveal theo viewport, count-up, spotlight theo con trỏ, thanh tiến trình đọc.
+- Phong cách tĩnh là chính: animation chỉ chạy một lần khi xuất hiện hoặc khi tương tác (không có chuyển động lặp vô hạn, trừ chấm trạng thái "Now"). Mọi animation chỉ dùng `transform`/`opacity` và tự tắt khi người dùng bật *Reduce motion*.
 - Thêm hiệu ứng reveal cho phần tử mới: gắn `data-reveal` (tuỳ chọn `style={{ "--d": "120ms" }}` để stagger); thêm spotlight: `data-spot` + class `card`.
 
 ## SEO
