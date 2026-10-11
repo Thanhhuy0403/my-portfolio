@@ -1,6 +1,7 @@
 import { LuArrowUpRight, LuGraduationCap } from "react-icons/lu";
 
 import { education, experience } from "@/content/profile";
+import { OrgLogo } from "./org-logo";
 import { SectionHeading } from "./section-heading";
 
 export function Experience() {
@@ -27,7 +28,9 @@ export function Experience() {
               />
               <article data-spot className="card lift p-6 sm:p-8">
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                  <div>
+                  <div className="flex items-start gap-4">
+                    {job.logo ? <OrgLogo logo={job.logo} className="h-12 w-24 sm:h-14 sm:w-28" /> : null}
+                    <div>
                     <h3 className="font-display text-xl font-semibold sm:text-2xl">{job.role}</h3>
                     <p className="mt-1 text-muted">
                       {job.href ? (
@@ -45,6 +48,7 @@ export function Experience() {
                       )}{" "}
                       · {job.location}
                     </p>
+                    </div>
                   </div>
                   <p className="flex shrink-0 items-center gap-2 font-mono text-xs text-muted sm:text-sm">
                     {job.current ? (

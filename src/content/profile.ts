@@ -6,6 +6,8 @@ import siuFirstPrize from "@/assets/awards/siu-first-prize.jpg";
 import vifotecCertificate from "@/assets/awards/vifotec-certificate.jpg";
 import moetCertificate from "@/assets/awards/moet-certificate.jpg";
 import outstandingStudent from "@/assets/awards/outstanding-student.jpg";
+import banvienLogo from "@/assets/logos/banvien.png";
+import ftesLogo from "@/assets/logos/ftes.png";
 
 /**
  * Single source of truth for every piece of content on the site.
@@ -80,8 +82,17 @@ export const overview = [
   "Co-Founder & Technical Leader of FTES, mentoring C/C++ and competitive programming for 2+ years.",
 ];
 
+export type OrgLogoImage = { src: StaticImageData; alt: string };
+
+/** Real logos supplied by the owner; used wherever these organisations appear. */
+export const logos = {
+  banvien: { src: banvienLogo, alt: "Ban Vien logo" },
+  ftes: { src: ftesLogo, alt: "FTES logo" },
+} satisfies Record<string, OrgLogoImage>;
+
 export type Experience = {
   company: string;
+  logo?: OrgLogoImage;
   href?: string;
   role: string;
   period: string;
@@ -95,6 +106,7 @@ export type Experience = {
 export const experience: Experience[] = [
   {
     company: "Ban Vien Corporation",
+    logo: logos.banvien,
     href: "https://banvien.com",
     role: "Embedded Software Engineer",
     period: "2026 — Present",
@@ -111,6 +123,7 @@ export const experience: Experience[] = [
   },
   {
     company: "FTES",
+    logo: logos.ftes,
     href: "https://ftes.vn/vi",
     role: "Co-Founder & Technical Leader",
     period: "2025 — Present",

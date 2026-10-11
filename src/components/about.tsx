@@ -1,7 +1,8 @@
 import type React from "react";
-import { LuBriefcase, LuGraduationCap, LuLanguages, LuRocket } from "react-icons/lu";
+import { LuGraduationCap, LuLanguages } from "react-icons/lu";
 
-import { education, overview, person } from "@/content/profile";
+import { education, logos, overview, person } from "@/content/profile";
+import { OrgLogo } from "./org-logo";
 import { SectionHeading } from "./section-heading";
 
 const interests = ["Embedded Software", "Firmware Development", "Microcontrollers", "FPGA / SoC", "IoT"];
@@ -44,19 +45,15 @@ export function About() {
           <article data-reveal data-spot style={{ "--d": "80ms" } as React.CSSProperties} className="card p-6 sm:p-7">
             <h3 className="font-mono text-xs uppercase tracking-[0.18em] text-muted">Currently</h3>
             <ul className="mt-5 space-y-5">
-              <li className="flex gap-4">
-                <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-accent-soft text-accent">
-                  <LuBriefcase className="size-5" aria-hidden="true" />
-                </span>
+              <li className="flex items-center gap-4">
+                <OrgLogo logo={logos.banvien} className="h-10 w-[4.5rem]" />
                 <div>
                   <p className="font-medium">Embedded Software Engineer</p>
                   <p className="text-sm text-muted">Ban Vien Corporation</p>
                 </div>
               </li>
-              <li className="flex gap-4">
-                <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-copper-soft text-copper">
-                  <LuRocket className="size-5" aria-hidden="true" />
-                </span>
+              <li className="flex items-center gap-4">
+                <OrgLogo logo={logos.ftes} className="h-10 w-[4.5rem]" />
                 <div>
                   <p className="font-medium">Co-Founder & Technical Leader</p>
                   <p className="text-sm text-muted">FTES — EdTech startup</p>

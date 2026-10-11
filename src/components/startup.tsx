@@ -2,8 +2,9 @@ import type React from "react";
 import type { IconType } from "react-icons";
 import { LuArrowUpRight, LuGraduationCap, LuHandCoins, LuRocket, LuTrophy } from "react-icons/lu";
 
-import { startup, type Milestone } from "@/content/profile";
+import { logos, startup, type Milestone } from "@/content/profile";
 import { AwardGallery } from "./award-gallery";
+import { OrgLogo } from "./org-logo";
 import { SectionHeading } from "./section-heading";
 import { SourceLink } from "./source-link";
 
@@ -69,9 +70,7 @@ export function Startup() {
         >
           <div>
             <div className="flex items-center gap-4">
-              <span className="grid size-14 place-items-center rounded-2xl border border-accent/30 bg-accent-soft font-display text-sm font-bold tracking-wide text-accent">
-                {startup.name}
-              </span>
+              <OrgLogo logo={logos.ftes} className="h-14 w-28" />
               <div>
                 <p className="font-display text-2xl font-semibold">{startup.name}</p>
                 <p className="text-sm text-muted">{startup.tagline}</p>
