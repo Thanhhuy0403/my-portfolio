@@ -1,6 +1,7 @@
 import { LuArrowUp, LuArrowUpRight } from "react-icons/lu";
 
 import { nav, person, socials } from "@/content/profile";
+import { LogoMark, Wordmark } from "./logo";
 
 export function Footer() {
   return (
@@ -8,7 +9,13 @@ export function Footer() {
       <div className="mx-auto max-w-6xl px-4 pt-14 sm:px-6">
         <div className="flex flex-col gap-10 sm:flex-row sm:items-start sm:justify-between">
           <div className="max-w-xs">
-            <p className="font-display text-lg font-semibold">{person.name}</p>
+            <div className="flex items-center gap-3">
+              <LogoMark className="size-9" />
+              <div>
+                <p className="font-display text-lg leading-tight font-semibold">{person.name}</p>
+                <Wordmark className="text-sm text-muted" />
+              </div>
+            </div>
             <p className="mt-2 text-sm leading-relaxed text-muted">
               Embedded Software Engineer in Ho Chi Minh City. Firmware, RTOS, FPGA and the people who learn them.
             </p>

@@ -1,8 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="14" fill="#06090d"/>
-  <rect x="9" y="9" width="46" height="46" rx="11" fill="#0c1219" stroke="#3ee6a0" stroke-opacity="0.55" stroke-width="2"/>
-  <!-- Lucide "activity" icon (ISC licence), scaled into the chip -->
-  <g transform="translate(16 16) scale(1.333)" fill="none" stroke="#3ee6a0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#0b1118"/><path d="M12 4.5V8M12 24V27.5M4.5 12H8M24 12H27.5M16 4.5V8M16 24V27.5M4.5 16H8M24 16H27.5M20 4.5V8M20 24V27.5M4.5 20H8M24 20H27.5" stroke="#f2b25c" stroke-width="1.8" stroke-linecap="round" fill="none"/><rect x="8" y="8" width="16" height="16" rx="3.5" fill="#0b1118" stroke="#e8eef4" stroke-width="1.8"/><rect x="12.5" y="12.5" width="7" height="7" rx="1.6" fill="#3ee6a0"/><circle cx="11.1" cy="11.1" r="1" fill="#e8eef4" fill-opacity=".55"/></svg>

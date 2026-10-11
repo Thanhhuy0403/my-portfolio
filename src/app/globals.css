@@ -295,6 +295,48 @@ html[data-js] [data-reveal="words"] {
   animation: bar 1.4s var(--ease-out) both;
 }
 
+/* Logo chip: boots once on load (leads light up clockwise, then the die powers on);
+   on hover a signal travels around the leads. Paint-only on a 32px SVG, so it stays cheap. */
+/* Used by <LogoMark animated /> in src/components/logo.tsx. */
+.chip-animated .chip-pin,
+.chip-animated .chip-die {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.chip-animated .chip-pin {
+  animation: chip-pin-boot 0.5s var(--ease-out) calc(150ms + var(--i) * 55ms) both;
+}
+.chip-animated .chip-die {
+  animation: chip-die-boot 0.7s var(--ease-out) 850ms both;
+}
+.group:hover .chip-animated .chip-pin {
+  animation: chip-signal 0.6s ease-out calc(var(--i) * 35ms) both;
+}
+.group:hover .chip-animated .chip-die {
+  animation: chip-die-pulse 0.7s var(--ease-out) 300ms both;
+}
+@keyframes chip-pin-boot {
+  from {
+    opacity: 0.15;
+  }
+}
+@keyframes chip-die-boot {
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+}
+@keyframes chip-signal {
+  40% {
+    stroke: #3ee6a0;
+  }
+}
+@keyframes chip-die-pulse {
+  50% {
+    transform: scale(1.15);
+  }
+}
+
 /* Source links: a faint resting underline, with an accent line that draws in from the left */
 .link-line {
   padding-bottom: 1px;

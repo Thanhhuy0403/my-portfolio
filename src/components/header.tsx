@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { LuDownload, LuMenu, LuX } from "react-icons/lu";
 
 import { nav, person } from "@/content/profile";
+import { LogoMark, Wordmark } from "./logo";
 import { ThemeToggle } from "./theme-toggle";
 
 export function Header() {
@@ -71,18 +72,14 @@ export function Header() {
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
         <a
           href="#top"
-          className="group flex items-center gap-2.5 font-mono text-sm font-semibold tracking-tight"
+          className="group flex items-center gap-2.5"
         >
           <span className="sr-only">{person.name} — back to top: </span>
-          <span className="relative grid size-8 place-items-center rounded-md border border-accent/40 bg-accent-soft text-[11px] text-accent">
-            {person.initials}
-            {/* chip pins */}
-            <span aria-hidden className="absolute -left-[5px] top-1.5 h-[2px] w-1 bg-accent/60 shadow-[0_6px_0_var(--accent),0_12px_0_var(--accent)] opacity-70" />
-            <span aria-hidden className="absolute -right-[5px] top-1.5 h-[2px] w-1 bg-accent/60 shadow-[0_6px_0_var(--accent),0_12px_0_var(--accent)] opacity-70" />
-          </span>
-          <span className="hidden sm:inline">
-            thanhhuy<span className="text-accent">.dev</span>
-          </span>
+          <LogoMark
+            animated
+            className="size-8 shadow-[0_6px_20px_-8px_var(--glow)] transition-transform duration-500 ease-out-expo group-hover:scale-105"
+          />
+          <Wordmark className="text-[17px]" />
         </a>
 
         <nav aria-label="Primary" className="hidden lg:block">

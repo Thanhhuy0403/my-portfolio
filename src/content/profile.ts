@@ -45,7 +45,6 @@ export const site = {
 export const person = {
   name: "Phan Thanh Huy",
   shortName: "Thanh Huy",
-  initials: "PTH",
   role: "Embedded Software Engineer",
   tagline:
     "I write firmware that talks to hardware — from STM32 registers and RTOS tasks to FPGA accelerators running real-time ECG classification.",
