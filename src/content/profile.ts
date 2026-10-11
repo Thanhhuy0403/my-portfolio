@@ -6,8 +6,14 @@ import siuFirstPrize from "@/assets/awards/siu-first-prize.jpg";
 import vifotecCertificate from "@/assets/awards/vifotec-certificate.jpg";
 import moetCertificate from "@/assets/awards/moet-certificate.jpg";
 import outstandingStudent from "@/assets/awards/outstanding-student.jpg";
+import advantechLogo from "@/assets/logos/advantech.png";
 import banvienLogo from "@/assets/logos/banvien.png";
+import fptUniversityLogo from "@/assets/logos/fpt-university.png";
 import ftesLogo from "@/assets/logos/ftes.png";
+import hcmutLogo from "@/assets/logos/hcmut.png";
+import siuLogo from "@/assets/logos/siu.png";
+import techfestLogo from "@/assets/logos/techfest.png";
+import youthUnionLogo from "@/assets/logos/youth-union.png";
 
 /**
  * Single source of truth for every piece of content on the site.
@@ -84,10 +90,20 @@ export const overview = [
 
 export type OrgLogoImage = { src: StaticImageData; alt: string };
 
-/** Real logos supplied by the owner; used wherever these organisations appear. */
+/**
+ * Official logos, used wherever these organisations appear.
+ * FTES and Ban Vien were supplied by the owner; the rest come from Wikimedia Commons
+ * (HCMUT, Advantech, FPT University, TECHFEST, HCM Communist Youth Union) and siu.edu.vn.
+ */
 export const logos = {
   banvien: { src: banvienLogo, alt: "Ban Vien logo" },
   ftes: { src: ftesLogo, alt: "FTES logo" },
+  hcmut: { src: hcmutLogo, alt: "HCMUT logo" },
+  advantech: { src: advantechLogo, alt: "Advantech logo" },
+  fptUniversity: { src: fptUniversityLogo, alt: "FPT University logo" },
+  techfest: { src: techfestLogo, alt: "TECHFEST Vietnam logo" },
+  youthUnion: { src: youthUnionLogo, alt: "Ho Chi Minh Communist Youth Union logo" },
+  siu: { src: siuLogo, alt: "Saigon International University logo" },
 } satisfies Record<string, OrgLogoImage>;
 
 export type Experience = {
@@ -142,6 +158,7 @@ export const experience: Experience[] = [
 
 export const education = {
   school: "Ho Chi Minh City University of Technology (HCMUT)",
+  logo: logos.hcmut,
   degree: "Bachelor of Engineering in Computer Engineering",
   period: "08/2022 — 06/2026",
   gpa: "3.1 / 4.0",
@@ -274,6 +291,8 @@ export type Milestone = {
   sources: { label: string; href: string }[];
   /** Optional event photo (e.g. from ftes.vn/achievements). Shown above the card, opens in a lightbox. */
   photo?: { src: StaticImageData; alt: string };
+  /** Organiser's logo; replaces the generic kind icon when present. */
+  logo?: OrgLogoImage;
 };
 
 export const startup = {
@@ -303,6 +322,7 @@ export const startup = {
     {
       kind: "award",
       badge: "Top 100",
+      logo: logos.techfest,
       title: "Top 100 startups — TECHFEST Vietnam 2025",
       org: "Ministry of Science & Technology · Hanoi People’s Committee",
       date: "Dec 2025",
@@ -334,6 +354,7 @@ export const startup = {
     {
       kind: "award",
       badge: "3rd Prize",
+      logo: logos.youthUnion,
       title: "Third Prize — Gia Lai Youth Startup Innovation 2025",
       org: "Gia Lai Provincial Youth Union",
       date: "Dec 2025",
@@ -360,6 +381,7 @@ export const startup = {
     },
     {
       kind: "scholarship",
+      logo: logos.fptUniversity,
       badge: "Scholarship",
       title: "Startup Scholarship — FPT University 2025",
       org: "FPT University",
@@ -385,6 +407,8 @@ export type Award = {
   images: { src: StaticImageData; alt: string; position?: string }[];
   /** Where a visitor can read about the competition (press, official page or organiser). */
   links: { label: string; href: string }[];
+  /** Organisers' logos, shown next to the organiser line. */
+  logos?: OrgLogoImage[];
   highlight?: boolean;
 };
 
@@ -397,6 +421,7 @@ export const awards: Award[] = [
     org: "Saigon International University — 5th Student Scientific Research & Startup Competition",
     team: "Sysma Team",
     highlight: true,
+    logos: [logos.siu],
     description:
       "Won first prize at the final round of the 5th Student Scientific Research and Startup Competition (academic year 2022–2023).",
     links: [{ label: "Saigon International University", href: "https://siu.edu.vn" }],
@@ -410,6 +435,7 @@ export const awards: Award[] = [
     date: "Dec 2022 — May 2023",
     year: 2023,
     org: "Advantech × HCMUT — “Code the future”",
+    logos: [logos.advantech, logos.hcmut],
     team: "Sysma Team",
     description:
       "Reached the final round of the AIoT application development contest hosted by Advantech (WISE-PaaS) and HCMUT, receiving the Encouragement (Fourth) Prize of 6,000,000 VND.",
@@ -443,6 +469,7 @@ export const awards: Award[] = [
     date: "Jan 2024",
     year: 2024,
     org: "Faculty of Computer Science and Engineering, HCMUT",
+    logos: [logos.hcmut],
     description:
       "Received the Most Voted Team Award at CSE MINATHON 2024, organised by the Faculty of Computer Science and Engineering.",
     images: [],
@@ -454,6 +481,7 @@ export const awards: Award[] = [
     date: "Mar 2024",
     year: 2024,
     org: "Faculty of Computer Science and Engineering, HCMUT",
+    logos: [logos.hcmut],
     description:
       "Recognised as an outstanding student of the Faculty of Computer Science and Engineering for the 2022–2023 academic year.",
     links: [{ label: "Faculty of CSE, HCMUT", href: "https://cse.hcmut.edu.vn" }],

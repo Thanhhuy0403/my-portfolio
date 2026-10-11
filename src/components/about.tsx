@@ -67,8 +67,13 @@ export function About() {
             <h3 className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-muted">
               <LuGraduationCap className="size-4" aria-hidden="true" /> Education
             </h3>
-            <p className="mt-4 font-medium leading-snug">{education.school}</p>
-            <p className="mt-1 text-sm text-muted">{education.degree}</p>
+            <div className="mt-4 flex items-start gap-3">
+              <OrgLogo logo={education.logo} className="size-11" />
+              <div>
+                <p className="font-medium leading-snug">{education.school}</p>
+                <p className="mt-1 text-sm text-muted">{education.degree}</p>
+              </div>
+            </div>
             <dl className="mt-5 grid grid-cols-2 gap-3 text-sm">
               <div className="rounded-xl bg-surface-2 p-3">
                 <dt className="text-xs text-muted">Period</dt>

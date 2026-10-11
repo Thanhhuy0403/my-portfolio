@@ -1,4 +1,4 @@
-import { LuArrowUpRight, LuGraduationCap } from "react-icons/lu";
+import { LuArrowUpRight } from "react-icons/lu";
 
 import { education, experience } from "@/content/profile";
 import { OrgLogo } from "./org-logo";
@@ -84,9 +84,7 @@ export function Experience() {
             />
             <article data-spot className="card lift flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
               <div className="flex gap-4">
-                <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-copper-soft text-copper">
-                  <LuGraduationCap className="size-5" aria-hidden="true" />
-                </span>
+                <OrgLogo logo={education.logo} className="size-12 sm:size-14" />
                 <div>
                   <h3 className="font-display text-lg font-semibold sm:text-xl">{education.degree}</h3>
                   <p className="mt-1 text-sm text-muted">{education.school}</p>

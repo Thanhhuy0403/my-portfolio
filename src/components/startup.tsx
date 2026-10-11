@@ -27,9 +27,13 @@ function MilestoneCard({ m, delay }: { m: Milestone; delay: number }) {
       {m.photo ? <AwardGallery images={[m.photo]} title={m.title} /> : null}
       <div className="flex flex-1 flex-col p-6">
         <div className="flex items-center gap-3">
-          <span className={`grid size-10 shrink-0 place-items-center rounded-xl ${tone}`}>
-            <Icon className="size-5" aria-hidden="true" />
-          </span>
+          {m.logo ? (
+            <OrgLogo logo={m.logo} compact className="h-10 w-16" />
+          ) : (
+            <span className={`grid size-10 shrink-0 place-items-center rounded-xl ${tone}`}>
+              <Icon className="size-5" aria-hidden="true" />
+            </span>
+          )}
           <span className="rounded-full border border-line px-2.5 py-1 font-mono text-[11px] font-medium tracking-wide">
             {m.badge}
           </span>

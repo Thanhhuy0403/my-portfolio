@@ -3,6 +3,7 @@ import { LuCalendarDays, LuTrophy, LuUsers } from "react-icons/lu";
 
 import { awards, type Award } from "@/content/profile";
 import { AwardGallery } from "./award-gallery";
+import { OrgLogo } from "./org-logo";
 import { SectionHeading } from "./section-heading";
 import { SourceLink } from "./source-link";
 
@@ -47,7 +48,12 @@ function AwardCard({ award, tall, delay = 0 }: { award: Award; tall?: boolean; d
         <h3 className="mt-3 font-display text-lg font-semibold leading-snug text-balance sm:text-xl">
           {award.title}
         </h3>
-        <p className="mt-1 text-sm text-muted">{award.org}</p>
+        <div className="mt-2 flex items-center gap-2.5">
+          {award.logos?.map((l) => (
+            <OrgLogo key={l.alt} logo={l} compact className="h-9 w-[4.5rem]" />
+          ))}
+          <p className="text-sm text-muted">{award.org}</p>
+        </div>
         <p className="mt-3 text-sm leading-relaxed text-pretty">{award.description}</p>
         <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 font-mono text-xs text-muted">
           <span className="inline-flex items-center gap-1.5">
