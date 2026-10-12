@@ -5,6 +5,7 @@ import innoworksAnnouncement from "@/assets/awards/innoworks-announcement.jpg";
 import siuFirstPrize from "@/assets/awards/siu-first-prize.jpg";
 import vifotecCertificate from "@/assets/awards/vifotec-certificate.jpg";
 import moetCertificate from "@/assets/awards/moet-certificate.jpg";
+import minathon from "@/assets/awards/minathon.jpg";
 import outstandingStudent from "@/assets/awards/outstanding-student.jpg";
 import advantechLogo from "@/assets/logos/advantech.png";
 import banvienLogo from "@/assets/logos/banvien.png";
@@ -466,13 +467,20 @@ export const awards: Award[] = [
   {
     title: "CSE MINATHON 2024",
     prize: "Most Voted Team Award",
-    date: "Jan 2024",
+    // Dates from the event banner (06–07/04/2024); the CV lists Jan 2024.
+    date: "Apr 2024",
     year: 2024,
     org: "Faculty of Computer Science and Engineering, HCMUT",
     logos: [logos.hcmut],
     description:
-      "Received the Most Voted Team Award at CSE MINATHON 2024, organised by the Faculty of Computer Science and Engineering.",
-    images: [],
+      "Most Voted Team Award at CSE MINATHON 2024, the faculty’s programming contest held on 6–7 April 2024 at the VNU-HCM Student Cultural House, with atWare Vietnam as partner.",
+    images: [
+      {
+        src: minathon,
+        alt: "Team at the CSE MINATHON 2024 programming contest beside the event banner",
+        position: "50% 45%",
+      },
+    ],
     links: [{ label: "Faculty of CSE, HCMUT", href: "https://cse.hcmut.edu.vn" }],
   },
   {
