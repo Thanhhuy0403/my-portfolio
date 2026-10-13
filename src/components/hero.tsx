@@ -49,6 +49,7 @@ export function Hero() {
               Now
             </span>
             Embedded Software Engineer @ <span className="font-medium text-fg">Ban Vien</span>
+            <span className="text-muted">for</span> <span className="font-medium text-fg">Bosch</span>
             <span aria-hidden className="text-line-strong">/</span>
             Co-Founder <span className="font-medium text-fg">FTES</span>
           </p>

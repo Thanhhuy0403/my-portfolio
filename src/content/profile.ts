@@ -9,6 +9,7 @@ import minathon from "@/assets/awards/minathon.jpg";
 import outstandingStudent from "@/assets/awards/outstanding-student.jpg";
 import advantechLogo from "@/assets/logos/advantech.png";
 import banvienLogo from "@/assets/logos/banvien.png";
+import boschLogo from "@/assets/logos/bosch.png";
 import fptUniversityLogo from "@/assets/logos/fpt-university.png";
 import ftesLogo from "@/assets/logos/ftes.png";
 import hcmutLogo from "@/assets/logos/hcmut.png";
@@ -29,7 +30,7 @@ export const site = {
       : "http://localhost:3000"),
   title: "Phan Thanh Huy — Embedded Software Engineer",
   description:
-    "Portfolio of Phan Thanh Huy, Embedded Software Engineer at Ban Vien and Co-Founder of FTES. Embedded C/C++, STM32, ESP32, FreeRTOS and FPGA SoC design. Computer Engineering, HCMUT.",
+    "Portfolio of Phan Thanh Huy, Embedded Software Engineer at Ban Vien (on site at Bosch) and Co-Founder of FTES. Embedded C/C++, STM32, ESP32, FreeRTOS and FPGA SoC design. Computer Engineering, HCMUT.",
   keywords: [
     "Phan Thanh Huy",
     "Embedded Software Engineer",
@@ -46,6 +47,7 @@ export const site = {
     "Computer Engineering",
     "FTES",
     "Ban Vien",
+    "Bosch",
     "Ho Chi Minh City",
   ],
   locale: "en_US",
@@ -94,10 +96,11 @@ export type OrgLogoImage = { src: StaticImageData; alt: string };
 /**
  * Official logos, used wherever these organisations appear.
  * FTES and Ban Vien were supplied by the owner; the rest come from Wikimedia Commons
- * (HCMUT, Advantech, FPT University, TECHFEST, HCM Communist Youth Union) and siu.edu.vn.
+ * (Bosch, HCMUT, Advantech, FPT University, TECHFEST, HCM Communist Youth Union) and siu.edu.vn.
  */
 export const logos = {
   banvien: { src: banvienLogo, alt: "Ban Vien logo" },
+  bosch: { src: boschLogo, alt: "Bosch logo" },
   ftes: { src: ftesLogo, alt: "FTES logo" },
   hcmut: { src: hcmutLogo, alt: "HCMUT logo" },
   advantech: { src: advantechLogo, alt: "Advantech logo" },
@@ -110,6 +113,8 @@ export const logos = {
 export type Experience = {
   company: string;
   logo?: OrgLogoImage;
+  /** Client the role is delivered to on site (outsourcing engagement); the employer stays `company`. */
+  client?: { name: string; logo: OrgLogoImage; href: string; site: string };
   href?: string;
   role: string;
   period: string;
@@ -125,18 +130,24 @@ export const experience: Experience[] = [
     company: "Ban Vien Corporation",
     logo: logos.banvien,
     href: "https://banvien.com",
+    client: {
+      name: "Bosch Global Software Technologies Vietnam",
+      logo: logos.bosch,
+      href: "https://www.bosch-softwaretechnologies.com",
+      site: "OfficeHaus, Tan Phu, Ho Chi Minh City",
+    },
     role: "Embedded Software Engineer",
     period: "2026 — Present",
     location: "Ho Chi Minh City",
     current: true,
     summary:
-      "Building embedded software at a Vietnamese technology company focused on firmware, driver development and embedded systems for global clients.",
+      "Ban Vien engineer assigned on site to Bosch Global Software Technologies Vietnam (BGSV), Bosch’s software and engineering centre in Ho Chi Minh City.",
     highlights: [
-      "Developing and maintaining embedded software in C/C++ for microcontroller-based products.",
+      "Developing and maintaining embedded software in C/C++ for Bosch, working day-to-day inside the Bosch team.",
       "Working across the firmware stack — peripherals, drivers, RTOS tasks and hardware bring-up.",
-      "Following a structured engineering process: code review, testing and documentation.",
+      "Following Bosch engineering processes: code review, testing and documentation. Project specifics are under NDA.",
     ],
-    tags: ["Embedded C", "C/C++", "MCU", "RTOS", "Drivers"],
+    tags: ["Bosch", "Embedded C", "C/C++", "MCU", "RTOS", "Drivers"],
   },
   {
     company: "FTES",

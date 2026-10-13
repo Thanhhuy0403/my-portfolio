@@ -1,4 +1,4 @@
-import { LuArrowUpRight } from "react-icons/lu";
+import { LuArrowUpRight, LuMapPin } from "react-icons/lu";
 
 import { education, experience } from "@/content/profile";
 import { OrgLogo } from "./org-logo";
@@ -57,6 +57,25 @@ export function Experience() {
                     {job.period}
                   </p>
                 </div>
+                {job.client ? (
+                  <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 rounded-2xl border border-line bg-surface-2/60 px-4 py-3">
+                    <span className="font-mono text-[10px] tracking-[0.18em] text-muted uppercase">On-site client</span>
+                    <OrgLogo logo={job.client.logo} compact className="h-8 w-20" />
+                    <a
+                      href={job.client.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-sm font-medium underline decoration-line-strong underline-offset-4 hover:decoration-accent"
+                    >
+                      {job.client.name}
+                      <LuArrowUpRight className="size-3.5" aria-hidden="true" />
+                    </a>
+                    <span className="inline-flex items-center gap-1.5 text-sm text-muted">
+                      <LuMapPin className="size-3.5 text-copper" aria-hidden="true" />
+                      {job.client.site}
+                    </span>
+                  </div>
+                ) : null}
                 <p className="mt-5 leading-relaxed text-pretty text-muted">{job.summary}</p>
                 <ul className="mt-4 space-y-2">
                   {job.highlights.map((h) => (

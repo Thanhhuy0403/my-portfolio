@@ -46,7 +46,7 @@ export default async function OpengraphImage() {
             Phan Thanh Huy
           </div>
           <div style={{ fontSize: 30, color: "#8f9cad", marginTop: 28, lineHeight: 1.35 }}>
-            Ban Vien · Co-Founder FTES · HCMUT Computer Engineering
+            Ban Vien (on site at Bosch) · Co-Founder FTES · HCMUT
           </div>
           <div style={{ display: "flex", gap: 12, marginTop: 40 }}>
             {["Embedded C/C++", "STM32", "ESP32", "FreeRTOS", "FPGA"].map((t) => (

@@ -49,7 +49,7 @@ export function About() {
                 <OrgLogo logo={logos.banvien} className="h-10 w-[4.5rem]" />
                 <div>
                   <p className="font-medium">Embedded Software Engineer</p>
-                  <p className="text-sm text-muted">Ban Vien Corporation</p>
+                  <p className="text-sm text-muted">Ban Vien Corporation · on site at Bosch</p>
                 </div>
               </li>
               <li className="flex items-center gap-4">
