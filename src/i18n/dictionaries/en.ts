@@ -1,0 +1,137 @@
+/**
+ * UI strings (English). This file is the shape every other dictionary must match, so a missing
+ * translation is a type error. Placeholders like {title} are filled with `fill()` from ../format.
+ */
+export const en = {
+  skipToContent: "Skip to content",
+  nav: {
+    about: "About",
+    experience: "Experience",
+    startup: "Startup",
+    projects: "Projects",
+    awards: "Awards",
+    skills: "Skills",
+    contact: "Contact",
+  },
+  header: {
+    backToTop: "back to top",
+    resume: "Resume",
+    downloadResume: "Download resume",
+    openMenu: "Open menu",
+    closeMenu: "Close menu",
+    primaryNav: "Primary",
+    mobileNav: "Mobile",
+    toggleTheme: "Toggle color theme",
+    language: "Language",
+    changeLanguage: "Change language",
+  },
+  hero: {
+    now: "Now",
+    roleAt: "Embedded Software Engineer @",
+    for: "for",
+    coFounder: "Co-Founder",
+    leadSr:
+      "Embedded engineer building bare-metal drivers, FreeRTOS firmware, FPGA accelerators and IoT systems — close to the metal, from registers and RTOS tasks to edge AI.",
+    leadBefore: "Embedded engineer building",
+    leadAfter: "— close to the metal, from registers and RTOS tasks to edge AI.",
+    roles: ["bare-metal drivers", "FreeRTOS firmware", "FPGA accelerators", "IoT systems"],
+    viewWork: "View my work",
+    downloadCv: "Download CV",
+    socialProfiles: "Social profiles",
+    portraitAlt: "Portrait of Phan Thanh Huy",
+    online: "online",
+  },
+  techStrip: { title: "Platforms & tools I build with" },
+  about: {
+    eyebrow: "About",
+    title: "Close to the metal, focused on reliable firmware.",
+    description:
+      "Computer Engineering graduate from HCMUT who enjoys the layer where software meets silicon — and who loves teaching it to others.",
+    overview: "Overview",
+    introBefore: "I’m",
+    introAfter:
+      ", an embedded software engineer who designs firmware for MCUs and FPGAs — from bare-metal drivers and RTOS tasks to hardware-accelerated AI at the edge.",
+    currently: "Currently",
+    banvienLine: "Ban Vien Corporation · on site at Bosch",
+    ftesLine: "FTES — EdTech startup",
+    education: "Education",
+    period: "Period",
+    gpa: "GPA",
+    codeSample: "Code sample",
+    focus: "Focus",
+    interests: ["Embedded Software", "Firmware Development", "Microcontrollers", "FPGA / SoC", "IoT"],
+    languages: "Vietnamese (native) · English",
+  },
+  experience: {
+    eyebrow: "Experience",
+    title: "Shipping firmware by day, building a startup alongside.",
+    description: "Professional embedded work, a company I co-founded, and the engineering degree behind both.",
+    now: "Now",
+    onsiteClient: "On-site client",
+    skillsUsed: "Skills used",
+    thesis: "Thesis",
+  },
+  startup: {
+    eyebrow: "Startup",
+    title: "Building FTES, AI learning for tech learners.",
+    description:
+      "The company I co-founded and lead technically — from first users to funding and national recognition in its first year.",
+    visit: "Visit ftes.vn",
+    metricsSource: "Learners & revenue:",
+    milestones: "Milestones · 2025",
+    sources: "Sources",
+  },
+  projects: {
+    eyebrow: "Selected work",
+    title: "From sensor to silicon.",
+    description:
+      "Three embedded systems built end-to-end — drivers, real-time firmware, hardware acceleration and the software around them.",
+    caption: "UI recreation of the project software · sample data",
+    grade: "grade",
+    viewSource: "View source",
+    viewSourceSr: "of {title} on GitHub",
+    techStack: "Tech stack",
+  },
+  awards: {
+    eyebrow: "Awards & recognition",
+    title: "Recognised for building things that work.",
+    description: "Competition results with the Sysma team and academic honours from HCMUT. Tap a photo to see the moment.",
+    learnMore: "Learn more about {title}",
+  },
+  gallery: {
+    open: "Open photos for {title}",
+    photos: "{count} photos",
+    view: "View",
+    previous: "Previous photo",
+    next: "Next photo",
+    close: "Close",
+  },
+  skills: { eyebrow: "Toolkit", title: "The stack I reach for.", softSkills: "Soft skills" },
+  contact: {
+    eyebrow: "Contact",
+    titleBefore: "Let’s build something that",
+    titleHighlight: "boots on the first try.",
+    body: "Open to embedded / firmware collaborations, mentoring and FTES partnerships. My inbox is always open.",
+    sayHello: "Say hello",
+    copyEmail: "Copy email",
+    copied: "Copied!",
+    email: "Email",
+    phone: "Phone",
+    basedIn: "Based in",
+    basedInValue: "Ho Chi Minh City, Vietnam",
+    socialProfiles: "Social profiles",
+  },
+  footer: {
+    blurb: "Embedded Software Engineer in Ho Chi Minh City. Firmware, RTOS, FPGA and the people who learn them.",
+    sitemap: "Sitemap",
+    elsewhere: "Elsewhere",
+    email: "Email",
+    credits: "Designed & built with Next.js · Hosted on Vercel.",
+    backToTop: "Back to top",
+  },
+  opensInNewTab: "(opens in a new tab)",
+};
+
+/** Same keys as English, any string values. */
+type Widen<T> = T extends string ? string : T extends readonly (infer U)[] ? Widen<U>[] : { [K in keyof T]: Widen<T[K]> };
+export type Dictionary = Widen<typeof en>;

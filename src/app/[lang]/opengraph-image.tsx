@@ -2,9 +2,18 @@ import { ImageResponse } from "next/og";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 
-import { person } from "@/content/profile";
+import { contentFor } from "@/content/profile";
+import { locales } from "@/i18n/config";
+
+// Shared by all languages: the image only uses Latin text, which the OG renderer's default font covers.
+const { person } = contentFor("en");
 
 export const alt = `${person.name} — ${person.role}`;
+
+// Prerender one image per language at build time instead of rendering on request.
+export function generateStaticParams() {
+  return locales.map((lang) => ({ lang }));
+}
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

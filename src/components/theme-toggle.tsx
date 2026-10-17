@@ -2,7 +2,7 @@
 
 import { LuMoon, LuSun } from "react-icons/lu";
 
-export function ThemeToggle() {
+export function ThemeToggle({ label }: { label: string }) {
   function toggle() {
     const root = document.documentElement;
     const next = root.dataset.theme === "dark" ? "light" : "dark";
@@ -19,7 +19,7 @@ export function ThemeToggle() {
     <button
       type="button"
       onClick={toggle}
-      aria-label="Toggle color theme"
+      aria-label={label}
       className="grid size-10 place-items-center rounded-full border border-line text-muted transition-colors hover:border-line-strong hover:text-fg"
     >
       <LuSun className="hidden size-[18px] dark:block" aria-hidden="true" />

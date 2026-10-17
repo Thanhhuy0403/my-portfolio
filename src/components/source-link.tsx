@@ -4,7 +4,7 @@ import { LuArrowUpRight } from "react-icons/lu";
  * External "read more" link used under awards and startup milestones.
  * Hover / keyboard focus draws an accent underline from the left and nudges the arrow (see .link-line).
  */
-export function SourceLink({ label, href }: { label: string; href: string }) {
+export function SourceLink({ label, href, newTabLabel }: { label: string; href: string; newTabLabel: string }) {
   return (
     <a
       href={href}
@@ -17,7 +17,7 @@ export function SourceLink({ label, href }: { label: string; href: string }) {
         className="size-3 transition-transform duration-300 ease-out-expo group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 group-focus-visible/link:translate-x-0.5 group-focus-visible/link:-translate-y-0.5"
         aria-hidden="true"
       />
-      <span className="sr-only"> (opens in a new tab)</span>
+      <span className="sr-only"> {newTabLabel}</span>
     </a>
   );
 }

@@ -1,10 +1,13 @@
 import { LuArrowUpRight, LuMapPin } from "react-icons/lu";
 
-import { education, experience } from "@/content/profile";
+import { getI18n } from "@/i18n/server";
 import { OrgLogo } from "./org-logo";
 import { SectionHeading } from "./section-heading";
 
-export function Experience() {
+export async function Experience() {
+  const { dict, content } = await getI18n();
+  const { education, experience } = content;
+  const x = dict.experience;
   return (
     <section id="experience" aria-labelledby="experience-title" className="relative py-16 sm:py-24">
       <div aria-hidden className="bg-grid absolute inset-0 -z-10 [mask-image:linear-gradient(transparent,black_20%,black_80%,transparent)]" />
@@ -12,9 +15,9 @@ export function Experience() {
         <SectionHeading
           id="experience-title"
           index="02"
-          eyebrow="Experience"
-          title="Shipping firmware by day, building a startup alongside."
-          description="Professional embedded work, a company I co-founded, and the engineering degree behind both."
+          eyebrow={x.eyebrow}
+          title={x.title}
+          description={x.description}
         />
 
         <ol className="relative space-y-6 pl-6 sm:pl-10">
@@ -28,9 +31,9 @@ export function Experience() {
               />
               <article data-spot className="card lift p-6 sm:p-8">
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                  <div className="flex items-start gap-4">
+                  <div className="flex min-w-0 items-start gap-4">
                     {job.logo ? <OrgLogo logo={job.logo} className="h-12 w-24 sm:h-14 sm:w-28" /> : null}
-                    <div>
+                    <div className="min-w-0">
                     <h3 className="font-display text-xl font-semibold sm:text-2xl">{job.role}</h3>
                     <p className="mt-1 text-muted">
                       {job.href ? (
@@ -52,14 +55,14 @@ export function Experience() {
                   </div>
                   <p className="flex shrink-0 items-center gap-2 font-mono text-xs text-muted sm:text-sm">
                     {job.current ? (
-                      <span className="rounded-full bg-accent-soft px-2 py-0.5 text-[11px] text-accent">Now</span>
+                      <span className="rounded-full bg-accent-soft px-2 py-0.5 text-[11px] text-accent">{x.now}</span>
                     ) : null}
                     {job.period}
                   </p>
                 </div>
                 {job.client ? (
                   <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 rounded-2xl border border-line bg-surface-2/60 px-4 py-3">
-                    <span className="font-mono text-[10px] tracking-[0.18em] text-muted uppercase">On-site client</span>
+                    <span className="font-mono text-[10px] tracking-[0.18em] text-muted uppercase">{x.onsiteClient}</span>
                     <OrgLogo logo={job.client.logo} compact className="h-8 w-20" />
                     <a
                       href={job.client.href}
@@ -85,7 +88,7 @@ export function Experience() {
                     </li>
                   ))}
                 </ul>
-                <ul className="mt-6 flex flex-wrap gap-2" aria-label="Skills used">
+                <ul className="mt-6 flex flex-wrap gap-2" aria-label={x.skillsUsed}>
                   {job.tags.map((t) => (
                     <li key={t} className="rounded-md bg-surface-2 px-2.5 py-1 font-mono text-xs text-muted">
                       {t}
@@ -104,10 +107,12 @@ export function Experience() {
             <article data-spot className="card lift flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
               <div className="flex gap-4">
                 <OrgLogo logo={education.logo} className="size-12 sm:size-14" />
-                <div>
+                <div className="min-w-0">
                   <h3 className="font-display text-lg font-semibold sm:text-xl">{education.degree}</h3>
                   <p className="mt-1 text-sm text-muted">{education.school}</p>
-                  <p className="mt-2 text-sm">Thesis: {education.thesis}</p>
+                  <p className="mt-2 text-sm">
+                    {x.thesis}: {education.thesis}
+                  </p>
                 </div>
               </div>
               <p className="shrink-0 font-mono text-xs text-muted sm:text-sm">{education.period}</p>

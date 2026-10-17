@@ -16,6 +16,7 @@ import {
 } from "react-icons/si";
 
 import { techLogos } from "@/content/profile";
+import { getDictionary } from "@/i18n/server";
 
 const ICONS: Record<(typeof techLogos)[number]["icon"], IconType> = {
   c: SiC,
@@ -33,12 +34,13 @@ const ICONS: Record<(typeof techLogos)[number]["icon"], IconType> = {
   python: SiPython,
 };
 
-export function TechStrip() {
+export async function TechStrip() {
+  const dict = await getDictionary();
   return (
     <section aria-labelledby="tech-strip-title" className="border-y border-line bg-surface/40">
       <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
         <p id="tech-strip-title" className="text-center font-mono text-[11px] tracking-[0.22em] text-muted uppercase">
-          Platforms &amp; tools I build with
+          {dict.techStrip.title}
         </p>
         <ul className="mt-7 flex flex-wrap items-center justify-center gap-x-10 gap-y-6 sm:gap-x-12">
           {techLogos.map((t) => {

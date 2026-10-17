@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 
-import { site } from "@/content/profile";
+import { contentFor } from "@/content/profile";
+
+const { site } = contentFor("en");
 
 export default function robots(): MetadataRoute.Robots {
   return {

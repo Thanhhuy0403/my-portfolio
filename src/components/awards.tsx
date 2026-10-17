@@ -1,7 +1,10 @@
 import type React from "react";
 import { LuCalendarDays, LuTrophy, LuUsers } from "react-icons/lu";
 
-import { awards, type Award } from "@/content/profile";
+import type { Award } from "@/content/profile";
+import type { Dictionary } from "@/i18n/dictionaries/en";
+import { fill } from "@/i18n/format";
+import { getI18n } from "@/i18n/server";
 import { AwardGallery } from "./award-gallery";
 import { OrgLogo } from "./org-logo";
 import { SectionHeading } from "./section-heading";
@@ -21,7 +24,17 @@ function NoPhoto({ award }: { award: Award }) {
   );
 }
 
-function AwardCard({ award, tall, delay = 0 }: { award: Award; tall?: boolean; delay?: number }) {
+function AwardCard({
+  award,
+  tall,
+  delay = 0,
+  dict,
+}: {
+  award: Award;
+  tall?: boolean;
+  delay?: number;
+  dict: Dictionary;
+}) {
   return (
     <article
       data-reveal
@@ -31,7 +44,7 @@ function AwardCard({ award, tall, delay = 0 }: { award: Award; tall?: boolean; d
     >
       {award.images.length > 0 ? (
         <div className={tall ? "lg:flex-1" : ""}>
-          <AwardGallery images={award.images} title={award.title} tall={tall} />
+          <AwardGallery images={award.images} title={award.title} tall={tall} labels={dict.gallery} />
         </div>
       ) : (
         <NoPhoto award={award} />
@@ -52,7 +65,7 @@ function AwardCard({ award, tall, delay = 0 }: { award: Award; tall?: boolean; d
           {award.logos?.map((l) => (
             <OrgLogo key={l.alt} logo={l} compact className="h-9 w-[4.5rem]" />
           ))}
-          <p className="text-sm text-muted">{award.org}</p>
+          <p className="min-w-0 text-sm text-muted">{award.org}</p>
         </div>
         <p className="mt-3 text-sm leading-relaxed text-pretty">{award.description}</p>
         <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 font-mono text-xs text-muted">
@@ -70,10 +83,10 @@ function AwardCard({ award, tall, delay = 0 }: { award: Award; tall?: boolean; d
         {award.links.length > 0 ? (
           // mt-auto pins the links to the card bottom; pt-4 keeps a minimum gap above the divider.
           <div className="mt-auto pt-4">
-            <ul className="flex flex-wrap gap-x-4 gap-y-1.5 border-t border-line pt-4" aria-label={`Learn more about ${award.title}`}>
+            <ul className="flex flex-wrap gap-x-4 gap-y-1.5 border-t border-line pt-4" aria-label={fill(dict.awards.learnMore, { title: award.title })}>
               {award.links.map((l) => (
                 <li key={l.href}>
-                  <SourceLink {...l} />
+                  <SourceLink {...l} newTabLabel={dict.opensInNewTab} />
                 </li>
               ))}
             </ul>
@@ -84,7 +97,9 @@ function AwardCard({ award, tall, delay = 0 }: { award: Award; tall?: boolean; d
   );
 }
 
-export function Awards() {
+export async function Awards() {
+  const { dict, content } = await getI18n();
+  const t = dict.awards;
   return (
     <section id="awards" aria-labelledby="awards-title" className="relative py-16 sm:py-24">
       <div aria-hidden className="bg-grid absolute inset-0 -z-10 [mask-image:linear-gradient(transparent,black_20%,black_80%,transparent)]" />
@@ -92,13 +107,13 @@ export function Awards() {
         <SectionHeading
           id="awards-title"
           index="05"
-          eyebrow="Awards & recognition"
-          title="Recognised for building things that work."
-          description="Competition results with the Sysma team and academic honours from HCMUT. Tap a photo to see the moment."
+          eyebrow={t.eyebrow}
+          title={t.title}
+          description={t.description}
         />
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {awards.map((a, i) => (
-            <AwardCard key={a.title} award={a} tall={i === 0} delay={(i % 3) * 90} />
+          {content.awards.map((a, i) => (
+            <AwardCard key={a.title} award={a} tall={i === 0} delay={(i % 3) * 90} dict={dict} />
           ))}
         </div>
       </div>

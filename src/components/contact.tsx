@@ -1,11 +1,14 @@
 import type React from "react";
 import { LuArrowUpRight, LuMail, LuMapPin, LuPhone } from "react-icons/lu";
 
-import { person, socials } from "@/content/profile";
+import { getI18n } from "@/i18n/server";
 import { SocialIcon } from "./brand-icons";
 import { CopyEmail } from "./copy-email";
 
-export function Contact() {
+export async function Contact() {
+  const { dict, content } = await getI18n();
+  const { person, socials } = content;
+  const c = dict.contact;
   return (
     <section id="contact" aria-labelledby="contact-title" className="py-16 sm:py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -16,13 +19,13 @@ export function Contact() {
           <p className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-accent">
             <span className="text-muted">07</span>
             <span aria-hidden className="h-px w-8 bg-accent/50" />
-            Contact
+            {c.eyebrow}
           </p>
           <h2 id="contact-title" className="mt-5 max-w-3xl font-display text-4xl font-semibold tracking-tight text-balance sm:text-6xl">
-            Let’s build something that <span className="text-accent">boots on the first try.</span>
+            {c.titleBefore} <span className="text-accent">{c.titleHighlight}</span>
           </h2>
           <p className="mt-5 max-w-xl text-lg text-pretty text-muted">
-            Open to embedded / firmware collaborations, mentoring and FTES partnerships. My inbox is always open.
+            {c.body}
           </p>
 
           <div className="mt-9 flex flex-wrap items-center gap-3">
@@ -31,32 +34,32 @@ export function Contact() {
               className="group inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 font-medium text-bg transition-transform hover:-translate-y-0.5"
             >
               <LuMail className="size-4" aria-hidden="true" />
-              Say hello
+              {c.sayHello}
               <LuArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
             </a>
-            <CopyEmail email={person.email} />
+            <CopyEmail email={person.email} labels={{ copy: c.copyEmail, copied: c.copied }} />
           </div>
 
           <dl className="mt-12 grid gap-6 border-t border-line pt-8 text-sm sm:grid-cols-2 lg:flex lg:gap-16">
             <div>
-              <dt className="flex items-center gap-2 font-mono text-xs text-muted"><LuMail className="size-3.5" aria-hidden="true" /> Email</dt>
+              <dt className="flex items-center gap-2 font-mono text-xs text-muted"><LuMail className="size-3.5" aria-hidden="true" /> {c.email}</dt>
               <dd className="mt-1.5 whitespace-nowrap">
                 <a href={`mailto:${person.email}`} className="hover:text-accent">{person.email}</a>
               </dd>
             </div>
             <div>
-              <dt className="flex items-center gap-2 font-mono text-xs text-muted"><LuPhone className="size-3.5" aria-hidden="true" /> Phone</dt>
+              <dt className="flex items-center gap-2 font-mono text-xs text-muted"><LuPhone className="size-3.5" aria-hidden="true" /> {c.phone}</dt>
               <dd className="mt-1.5">
                 <a href={person.phoneHref} className="hover:text-accent">{person.phone}</a>
               </dd>
             </div>
             <div>
-              <dt className="flex items-center gap-2 font-mono text-xs text-muted"><LuMapPin className="size-3.5" aria-hidden="true" /> Based in</dt>
-              <dd className="mt-1.5">Ho Chi Minh City, Vietnam</dd>
+              <dt className="flex items-center gap-2 font-mono text-xs text-muted"><LuMapPin className="size-3.5" aria-hidden="true" /> {c.basedIn}</dt>
+              <dd className="mt-1.5">{c.basedInValue}</dd>
             </div>
           </dl>
 
-          <ul className="mt-8 flex flex-wrap gap-2" aria-label="Social profiles">
+          <ul className="mt-8 flex flex-wrap gap-2" aria-label={c.socialProfiles}>
             {socials.map((s) => (
               <li key={s.label}>
                 <a

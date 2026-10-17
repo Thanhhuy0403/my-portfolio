@@ -3,11 +3,9 @@ import Image from "next/image";
 import { LuArrowUpRight, LuDownload, LuMapPin } from "react-icons/lu";
 
 import portrait from "@/assets/profile.jpg";
-import { person, socials, stats } from "@/content/profile";
+import { getI18n } from "@/i18n/server";
 import { SocialIcon } from "./brand-icons";
 import { RoleRotator } from "./role-rotator";
-
-const ROLES = ["bare-metal drivers", "FreeRTOS firmware", "FPGA accelerators", "IoT systems"];
 
 const BOOT = [
   { t: "0.000", tag: "boot", msg: "phan-thanh-huy v2026.10" },
@@ -33,7 +31,10 @@ function Letters() {
   ));
 }
 
-export function Hero() {
+export async function Hero() {
+  const { dict, content } = await getI18n();
+  const { person, socials, stats } = content;
+  const h = dict.hero;
   return (
     <section id="top" aria-labelledby="hero-title" className="relative isolate overflow-hidden pt-28 pb-16 sm:pt-36 sm:pb-24">
       {/* Background */}
@@ -46,12 +47,12 @@ export function Hero() {
           <p className="animate-rise inline-flex flex-wrap items-center gap-x-2.5 gap-y-1 rounded-full border border-line bg-surface/70 py-1.5 pr-4 pl-1.5 text-xs text-muted shadow-sm backdrop-blur sm:text-sm">
             <span className="flex items-center gap-1.5 rounded-full bg-accent-soft px-2 py-0.5 font-medium text-accent">
               <span className="animate-pulse-dot size-1.5 rounded-full bg-accent" />
-              Now
+              {h.now}
             </span>
-            Embedded Software Engineer @ <span className="font-medium text-fg">Ban Vien</span>
-            <span className="text-muted">for</span> <span className="font-medium text-fg">Bosch</span>
+            {h.roleAt} <span className="font-medium text-fg">Ban Vien</span>
+            <span className="text-muted">{h.for}</span> <span className="font-medium text-fg">Bosch</span>
             <span aria-hidden className="text-line-strong">/</span>
-            Co-Founder <span className="font-medium text-fg">FTES</span>
+            {h.coFounder} <span className="font-medium text-fg">FTES</span>
           </p>
 
           <h1
@@ -67,13 +68,12 @@ export function Hero() {
           </h1>
 
           <p className="animate-rise mt-7 max-w-xl text-lg leading-relaxed text-pretty text-muted [animation-delay:450ms] sm:text-xl">
-            <span className="sr-only">
-              Embedded engineer building bare-metal drivers, FreeRTOS firmware, FPGA accelerators and IoT systems — close to the metal, from registers and RTOS tasks to edge AI.
-            </span>
+            <span className="sr-only">{h.leadSr}</span>
             <span aria-hidden>
-              Embedded engineer building{" "}
-              <RoleRotator words={ROLES} />
-              <br />— close to the metal, from registers and RTOS tasks to edge AI.
+              {h.leadBefore ? <>{h.leadBefore} </> : null}
+              <RoleRotator words={h.roles} />
+              {h.leadBefore ? <br /> : null}
+              {h.leadAfter}
             </span>
           </p>
 
@@ -83,7 +83,7 @@ export function Hero() {
               className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-accent px-6 py-3.5 font-medium text-bg shadow-[0_10px_30px_-10px_var(--glow)] transition-transform duration-300 hover:-translate-y-0.5"
             >
               <span aria-hidden className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/35 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
-              View my work
+              {h.viewWork}
               <LuArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
             </a>
             <a
@@ -92,9 +92,9 @@ export function Hero() {
               className="inline-flex items-center gap-2 rounded-full border border-line-strong bg-surface/60 px-6 py-3.5 font-medium backdrop-blur transition-colors hover:bg-surface"
             >
               <LuDownload className="size-4" aria-hidden="true" />
-              Download CV
+              {h.downloadCv}
             </a>
-            <ul className="flex items-center gap-1 sm:ml-1" aria-label="Social profiles">
+            <ul className="flex items-center gap-1 sm:ml-1" aria-label={h.socialProfiles}>
               {socials.map((s) => (
                 <li key={s.label}>
                   <a
@@ -135,7 +135,7 @@ export function Hero() {
             <div className="relative aspect-[4/5] overflow-hidden rounded-[1.5rem] bg-surface-2">
               <Image
                 src={portrait}
-                alt="Portrait of Phan Thanh Huy"
+                alt={h.portraitAlt}
                 fill
                 loading="eager"
                 fetchPriority="high"
@@ -147,7 +147,7 @@ export function Hero() {
             <div className="flex items-center justify-between px-2 pt-3 pb-1 font-mono text-[11px] text-muted">
               <span>U1 · PTH-2004</span>
               <span className="flex items-center gap-1.5">
-                <span className="size-1.5 rounded-full bg-accent" /> online
+                <span className="size-1.5 rounded-full bg-accent" /> {h.online}
               </span>
             </div>
           </div>

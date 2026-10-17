@@ -54,8 +54,9 @@
   --color-accent-soft: var(--accent-soft);
   --color-copper: var(--copper);
   --color-copper-soft: var(--copper-soft);
-  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-space-grotesk), var(--font-geist), ui-sans-serif, sans-serif;
+  /* Japanese glyphs fall back to the OS fonts (Hiragino / Yu Gothic / Noto Sans JP): no extra download. */
+  --font-sans: var(--font-geist), "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", Meiryo, "Noto Sans JP", ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-space-grotesk), var(--font-geist), "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", Meiryo, "Noto Sans JP", ui-sans-serif, sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -113,6 +114,16 @@ body::before {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 8px;
+}
+
+/* Japanese: negative tracking crushes kana/kanji, and lines should break between phrases. */
+:lang(ja) :is(h2, h3, p, li, dd) {
+  letter-spacing: normal;
+  line-break: strict;
+  word-break: auto-phrase;
+}
+:lang(ja) h2 {
+  line-height: 1.3;
 }
 
 /* ============ Surfaces ============ */

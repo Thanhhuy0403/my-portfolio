@@ -1,6 +1,9 @@
 import type { MetadataRoute } from "next";
 
-import { person, site } from "@/content/profile";
+import { contentFor } from "@/content/profile";
+
+// The web-app manifest is shared by all languages, so it uses the English copy.
+const { person, site } = contentFor("en");
 
 export default function manifest(): MetadataRoute.Manifest {
   return {

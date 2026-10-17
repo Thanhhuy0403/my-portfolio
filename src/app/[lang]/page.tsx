@@ -10,11 +10,20 @@ import { Projects } from "@/components/projects";
 import { Skills } from "@/components/skills";
 import { Startup } from "@/components/startup";
 import { TechStrip } from "@/components/tech-strip";
+import { sectionIds } from "@/content/profile";
+import { getI18n } from "@/i18n/server";
 
-export default function Home() {
+export default async function Home() {
+  const { locale, dict, content } = await getI18n();
   return (
     <>
-      <Header />
+      <Header
+        locale={locale}
+        nav={sectionIds.map((id) => ({ id, label: dict.nav[id] }))}
+        labels={dict.header}
+        name={content.person.name}
+        cv={content.person.cv}
+      />
       <main id="main">
         <Hero />
         <TechStrip />
@@ -28,7 +37,7 @@ export default function Home() {
       </main>
       <Footer />
       {/* Last in the page tree so its effects run only after every section has hydrated
-          (it adds attributes like data-shown / data-offscreen to server-rendered markup). */}
+          (it adds attributes like data-shown to server-rendered markup). */}
       <Effects />
     </>
   );

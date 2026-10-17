@@ -3,11 +3,25 @@
 import { useEffect, useState } from "react";
 import { LuDownload, LuMenu, LuX } from "react-icons/lu";
 
-import { nav, person } from "@/content/profile";
+import type { Locale } from "@/i18n/config";
+import type { Dictionary } from "@/i18n/dictionaries/en";
+import { LanguageSwitcher } from "./language-switcher";
 import { LogoMark, Wordmark } from "./logo";
 import { ThemeToggle } from "./theme-toggle";
 
-export function Header() {
+export function Header({
+  locale,
+  nav,
+  labels,
+  name,
+  cv,
+}: {
+  locale: Locale;
+  nav: { id: string; label: string }[];
+  labels: Dictionary["header"];
+  name: string;
+  cv: string;
+}) {
   const [active, setActive] = useState<string>("");
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -44,7 +58,7 @@ export function Header() {
       observer.disconnect();
       window.removeEventListener("scroll", onScroll);
     };
-  }, []);
+  }, [nav]);
 
   useEffect(() => {
     if (!open) return;
@@ -69,30 +83,27 @@ export function Header() {
           : "border-b border-transparent"
       }`}
     >
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
-        <a
-          href="#top"
-          className="group flex items-center gap-2.5"
-        >
-          <span className="sr-only">{person.name} — back to top: </span>
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
+        <a href="#top" className="group flex items-center gap-2.5">
+          <span className="sr-only">
+            {name} — {labels.backToTop}:{" "}
+          </span>
           <LogoMark
             animated
             className="size-8 shadow-[0_6px_20px_-8px_var(--glow)] transition-transform duration-500 ease-out-expo group-hover:scale-105"
           />
-          <Wordmark className="text-[17px]" />
+          <Wordmark className="hidden text-[17px] min-[400px]:inline" />
         </a>
 
-        <nav aria-label="Primary" className="hidden lg:block">
+        <nav aria-label={labels.primaryNav} className="hidden lg:block">
           <ul className="flex items-center gap-1 rounded-full border border-line bg-surface/60 p-1 backdrop-blur">
             {nav.map((item) => (
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
                   aria-current={active === item.id ? "true" : undefined}
-                  className={`block rounded-full px-3.5 py-1.5 text-sm transition-colors ${
-                    active === item.id
-                      ? "bg-accent-soft text-accent"
-                      : "text-muted hover:text-fg"
+                  className={`block rounded-full px-3.5 py-1.5 text-sm whitespace-nowrap transition-colors ${
+                    active === item.id ? "bg-accent-soft text-accent" : "text-muted hover:text-fg"
                   }`}
                 >
                   {item.label}
@@ -103,19 +114,20 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <ThemeToggle />
+          <LanguageSwitcher locale={locale} labels={labels} />
+          <ThemeToggle label={labels.toggleTheme} />
           <a
-            href={person.cv}
+            href={cv}
             download
-            className="hidden items-center gap-2 rounded-full bg-fg px-4 py-2 text-sm font-medium text-bg transition-opacity hover:opacity-85 sm:inline-flex"
+            className="hidden items-center gap-2 rounded-full bg-fg px-4 py-2 text-sm font-medium whitespace-nowrap text-bg transition-opacity hover:opacity-85 sm:inline-flex"
           >
             <LuDownload className="size-4" aria-hidden="true" />
-            Resume
+            {labels.resume}
           </a>
           <button
             type="button"
             className="grid size-10 place-items-center rounded-full border border-line lg:hidden"
-            aria-label={open ? "Close menu" : "Open menu"}
+            aria-label={open ? labels.closeMenu : labels.openMenu}
             aria-expanded={open}
             aria-controls="mobile-nav"
             onClick={() => setOpen((v) => !v)}
@@ -128,7 +140,7 @@ export function Header() {
       <nav
         id="mobile-nav"
         data-lenis-prevent
-        aria-label="Mobile"
+        aria-label={labels.mobileNav}
         hidden={!open}
         className="h-[calc(100dvh-4rem)] overflow-y-auto border-t border-line bg-bg px-4 pb-10 pt-4 lg:hidden"
       >
@@ -152,12 +164,12 @@ export function Header() {
           ))}
         </ul>
         <a
-          href={person.cv}
+          href={cv}
           download
           className="mt-8 flex items-center justify-center gap-2 rounded-full bg-fg px-5 py-3 font-medium text-bg"
         >
           <LuDownload className="size-4" aria-hidden="true" />
-          Download resume
+          {labels.downloadResume}
         </a>
       </nav>
     </header>

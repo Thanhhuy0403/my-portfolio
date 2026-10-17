@@ -2,8 +2,9 @@ import type React from "react";
 import type { IconType } from "react-icons";
 import { LuArrowUpRight, LuGraduationCap, LuHandCoins, LuRocket, LuTrophy } from "react-icons/lu";
 
-import { logos, startup, type Milestone } from "@/content/profile";
-import { AwardGallery } from "./award-gallery";
+import type { Milestone } from "@/content/profile";
+import { getI18n } from "@/i18n/server";
+import { AwardGallery, type GalleryLabels } from "./award-gallery";
 import { OrgLogo } from "./org-logo";
 import { SectionHeading } from "./section-heading";
 import { SourceLink } from "./source-link";
@@ -15,7 +16,15 @@ const KIND: Record<Milestone["kind"], { icon: IconType; tone: string }> = {
   scholarship: { icon: LuGraduationCap, tone: "bg-copper-soft text-copper" },
 };
 
-function MilestoneCard({ m, delay }: { m: Milestone; delay: number }) {
+function MilestoneCard({
+  m,
+  delay,
+  labels,
+}: {
+  m: Milestone;
+  delay: number;
+  labels: { sources: string; newTab: string; gallery: GalleryLabels };
+}) {
   const { icon: Icon, tone } = KIND[m.kind];
   return (
     <article
@@ -24,7 +33,7 @@ function MilestoneCard({ m, delay }: { m: Milestone; delay: number }) {
       style={{ "--d": `${delay}ms` } as React.CSSProperties}
       className="card lift flex flex-col overflow-hidden"
     >
-      {m.photo ? <AwardGallery images={[m.photo]} title={m.title} /> : null}
+      {m.photo ? <AwardGallery images={[m.photo]} title={m.title} labels={labels.gallery} /> : null}
       <div className="flex flex-1 flex-col p-6">
         <div className="flex items-center gap-3">
           {m.logo ? (
@@ -42,10 +51,10 @@ function MilestoneCard({ m, delay }: { m: Milestone; delay: number }) {
         <h3 className="mt-5 font-display text-lg leading-snug font-semibold text-balance">{m.title}</h3>
         <p className="mt-1 text-sm text-muted">{m.org}</p>
         <p className="mt-3 text-sm leading-relaxed text-pretty">{m.description}</p>
-        <ul className="mt-auto flex flex-wrap gap-x-4 gap-y-1.5 pt-5" aria-label="Sources">
+        <ul className="mt-auto flex flex-wrap gap-x-4 gap-y-1.5 pt-5" aria-label={labels.sources}>
           {m.sources.map((s) => (
             <li key={s.href}>
-              <SourceLink {...s} />
+              <SourceLink {...s} newTabLabel={labels.newTab} />
             </li>
           ))}
         </ul>
@@ -54,16 +63,19 @@ function MilestoneCard({ m, delay }: { m: Milestone; delay: number }) {
   );
 }
 
-export function Startup() {
+export async function Startup() {
+  const { dict, content } = await getI18n();
+  const { logos, startup } = content;
+  const s = dict.startup;
   return (
     <section id="startup" aria-labelledby="startup-title" className="py-16 sm:py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
           id="startup-title"
           index="03"
-          eyebrow="Startup"
-          title="Building FTES, AI learning for tech learners."
-          description="The company I co-founded and lead technically — from first users to funding and national recognition in its first year."
+          eyebrow={s.eyebrow}
+          title={s.title}
+          description={s.description}
         />
 
         {/* Overview */}
@@ -75,7 +87,7 @@ export function Startup() {
           <div>
             <div className="flex items-center gap-4">
               <OrgLogo logo={logos.ftes} className="h-14 w-28" />
-              <div>
+              <div className="min-w-0">
                 <p className="font-display text-2xl font-semibold">{startup.name}</p>
                 <p className="text-sm text-muted">{startup.tagline}</p>
               </div>
@@ -89,7 +101,7 @@ export function Startup() {
                 rel="noopener noreferrer"
                 className="group inline-flex items-center gap-1.5 text-sm font-medium transition-colors hover:text-accent"
               >
-                Visit ftes.vn
+                {s.visit}
                 <LuArrowUpRight
                   className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                   aria-hidden="true"
@@ -108,7 +120,7 @@ export function Startup() {
               ))}
             </dl>
             <p className="mt-3 text-right text-[11px] text-muted">
-              Learners &amp; revenue:{" "}
+              {s.metricsSource}{" "}
               <a
                 href={startup.metricsSource.href}
                 target="_blank"
@@ -122,10 +134,15 @@ export function Startup() {
         </div>
 
         {/* Milestones */}
-        <h3 className="mt-14 mb-6 font-mono text-xs tracking-[0.2em] text-muted uppercase">Milestones · 2025</h3>
+        <h3 className="mt-14 mb-6 font-mono text-xs tracking-[0.2em] text-muted uppercase">{s.milestones}</h3>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {startup.milestones.map((m, i) => (
-            <MilestoneCard key={m.title} m={m} delay={(i % 3) * 80} />
+            <MilestoneCard
+              key={m.title}
+              m={m}
+              delay={(i % 3) * 80}
+              labels={{ sources: s.sources, newTab: dict.opensInNewTab, gallery: dict.gallery }}
+            />
           ))}
         </div>
       </div>

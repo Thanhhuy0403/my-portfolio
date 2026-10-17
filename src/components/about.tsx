@@ -1,32 +1,33 @@
 import type React from "react";
 import { LuGraduationCap, LuLanguages } from "react-icons/lu";
 
-import { education, logos, overview, person } from "@/content/profile";
+import { getI18n } from "@/i18n/server";
 import { OrgLogo } from "./org-logo";
 import { SectionHeading } from "./section-heading";
 
-const interests = ["Embedded Software", "Firmware Development", "Microcontrollers", "FPGA / SoC", "IoT"];
-
-export function About() {
+export async function About() {
+  const { dict, content } = await getI18n();
+  const { education, logos, overview, person } = content;
+  const a = dict.about;
   return (
     <section id="about" aria-labelledby="about-title" className="py-16 sm:py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
           id="about-title"
           index="01"
-          eyebrow="About"
-          title="Close to the metal, focused on reliable firmware."
-          description="Computer Engineering graduate from HCMUT who enjoys the layer where software meets silicon — and who loves teaching it to others."
+          eyebrow={a.eyebrow}
+          title={a.title}
+          description={a.description}
         />
 
         <div className="grid gap-4 lg:grid-cols-3">
           {/* Overview */}
           <article data-reveal data-spot style={{ "--d": "0ms" } as React.CSSProperties} className="card p-6 sm:p-8 lg:col-span-2 lg:row-span-2">
-            <h3 className="font-mono text-xs uppercase tracking-[0.18em] text-muted">Overview</h3>
+            <h3 className="font-mono text-xs uppercase tracking-[0.18em] text-muted">{a.overview}</h3>
             <p className="mt-4 font-display text-xl leading-snug text-pretty sm:text-2xl">
-              I’m <span className="text-accent">{person.shortName}</span>, an embedded software engineer
-              who designs firmware for MCUs and FPGAs — from bare-metal drivers and RTOS tasks to
-              hardware-accelerated AI at the edge.
+              {a.introBefore ? <>{a.introBefore} </> : null}
+              <span className="text-accent">{person.shortName}</span>
+              {a.introAfter}
             </p>
             <ul className="mt-7 grid gap-3 sm:grid-cols-2">
               {overview.map((line) => (
@@ -43,20 +44,20 @@ export function About() {
 
           {/* Currently */}
           <article data-reveal data-spot style={{ "--d": "80ms" } as React.CSSProperties} className="card p-6 sm:p-7">
-            <h3 className="font-mono text-xs uppercase tracking-[0.18em] text-muted">Currently</h3>
+            <h3 className="font-mono text-xs uppercase tracking-[0.18em] text-muted">{a.currently}</h3>
             <ul className="mt-5 space-y-5">
               <li className="flex items-center gap-4">
                 <OrgLogo logo={logos.banvien} className="h-10 w-[4.5rem]" />
-                <div>
-                  <p className="font-medium">Embedded Software Engineer</p>
-                  <p className="text-sm text-muted">Ban Vien Corporation · on site at Bosch</p>
+                <div className="min-w-0">
+                  <p className="font-medium">{person.role}</p>
+                  <p className="text-sm text-muted">{a.banvienLine}</p>
                 </div>
               </li>
               <li className="flex items-center gap-4">
                 <OrgLogo logo={logos.ftes} className="h-10 w-[4.5rem]" />
-                <div>
-                  <p className="font-medium">Co-Founder & Technical Leader</p>
-                  <p className="text-sm text-muted">FTES — EdTech startup</p>
+                <div className="min-w-0">
+                  <p className="font-medium">{content.startup.role}</p>
+                  <p className="text-sm text-muted">{a.ftesLine}</p>
                 </div>
               </li>
             </ul>
@@ -65,29 +66,29 @@ export function About() {
           {/* Education */}
           <article data-reveal data-spot style={{ "--d": "160ms" } as React.CSSProperties} className="card p-6 sm:p-7">
             <h3 className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-muted">
-              <LuGraduationCap className="size-4" aria-hidden="true" /> Education
+              <LuGraduationCap className="size-4" aria-hidden="true" /> {a.education}
             </h3>
             <div className="mt-4 flex items-start gap-3">
               <OrgLogo logo={education.logo} className="size-11" />
-              <div>
+              <div className="min-w-0">
                 <p className="font-medium leading-snug">{education.school}</p>
                 <p className="mt-1 text-sm text-muted">{education.degree}</p>
               </div>
             </div>
             <dl className="mt-5 grid grid-cols-2 gap-3 text-sm">
               <div className="rounded-xl bg-surface-2 p-3">
-                <dt className="text-xs text-muted">Period</dt>
+                <dt className="text-xs text-muted">{a.period}</dt>
                 <dd className="mt-0.5 font-mono text-[13px]">{education.period}</dd>
               </div>
               <div className="rounded-xl bg-surface-2 p-3">
-                <dt className="text-xs text-muted">GPA</dt>
+                <dt className="text-xs text-muted">{a.gpa}</dt>
                 <dd className="mt-0.5 font-mono text-[13px]">{education.gpa}</dd>
               </div>
             </dl>
           </article>
 
           {/* Code card */}
-          <article data-reveal data-spot style={{ "--d": "240ms" } as React.CSSProperties} className="card overflow-hidden lg:col-span-2" aria-label="Code sample">
+          <article data-reveal data-spot style={{ "--d": "240ms" } as React.CSSProperties} className="card overflow-hidden lg:col-span-2" aria-label={a.codeSample}>
             <div className="flex items-center gap-2 border-b border-line px-5 py-3">
               <span className="size-2.5 rounded-full bg-[#ff5f57]" />
               <span className="size-2.5 rounded-full bg-[#febc2e]" />
@@ -111,9 +112,9 @@ export function About() {
 
           {/* Interests + language */}
           <article data-reveal data-spot style={{ "--d": "320ms" } as React.CSSProperties} className="card p-6 sm:p-7">
-            <h3 className="font-mono text-xs uppercase tracking-[0.18em] text-muted">Focus</h3>
+            <h3 className="font-mono text-xs uppercase tracking-[0.18em] text-muted">{a.focus}</h3>
             <ul className="mt-4 flex flex-wrap gap-2">
-              {interests.map((i) => (
+              {a.interests.map((i) => (
                 <li key={i} className="rounded-full border border-line px-3 py-1 text-sm">
                   {i}
                 </li>
@@ -121,7 +122,7 @@ export function About() {
             </ul>
             <p className="mt-6 flex items-center gap-2 text-sm text-muted">
               <LuLanguages className="size-4 text-copper" aria-hidden="true" />
-              Vietnamese (native) · English — {person.toeic}
+              {a.languages} — {person.toeic}
             </p>
           </article>
         </div>

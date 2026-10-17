@@ -23,16 +23,16 @@ import {
   SiStmicroelectronics,
 } from "react-icons/si";
 
-import { skills, softSkills } from "@/content/profile";
+import { getI18n } from "@/i18n/server";
 import { SectionHeading } from "./section-heading";
 
 const GROUP_ICONS: Record<string, IconType> = {
-  Languages: LuCode,
-  "Microcontrollers & HW": LuCpu,
-  "Protocols & Buses": LuCable,
-  Peripherals: LuCircuitBoard,
-  Systems: LuLayers,
-  Tools: LuWrench,
+  languages: LuCode,
+  hardware: LuCpu,
+  protocols: LuCable,
+  peripherals: LuCircuitBoard,
+  systems: LuLayers,
+  tools: LuWrench,
 };
 
 // Official logos only where one exists; everything else stays as plain text rather than a guessed icon.
@@ -51,7 +51,10 @@ const ITEM_LOGOS: Record<string, IconType> = {
   Firebase: SiFirebase,
 };
 
-export function Skills() {
+export async function Skills() {
+  const { dict, content } = await getI18n();
+  const { skills, softSkills } = content;
+  const t = dict.skills;
   return (
     <section
       id="skills"
@@ -62,16 +65,16 @@ export function Skills() {
         <SectionHeading
           id="skills-title"
           index="06"
-          eyebrow="Toolkit"
-          title="The stack I reach for."
+          eyebrow={t.eyebrow}
+          title={t.title}
         />
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {skills.map((group, i) => {
-            const GroupIcon = GROUP_ICONS[group.group] ?? LuCpu;
+            const GroupIcon = GROUP_ICONS[group.key] ?? LuCpu;
             return (
               <article
-                key={group.group}
+                key={group.key}
                 data-reveal
                 data-spot
                 style={{ "--d": `${(i % 3) * 80}ms` } as React.CSSProperties}
@@ -118,7 +121,7 @@ export function Skills() {
         >
           <h3 className="flex shrink-0 items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-muted">
             <LuHandshake className="size-4 text-copper" aria-hidden="true" />{" "}
-            Soft skills
+            {t.softSkills}
           </h3>
           <ul className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
             {softSkills.map((s) => (

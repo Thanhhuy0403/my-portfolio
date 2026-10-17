@@ -4,16 +4,22 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Image, { type StaticImageData } from "next/image";
 import { LuChevronLeft, LuChevronRight, LuExpand, LuX } from "react-icons/lu";
 
+import { fill } from "@/i18n/format";
+
 type Img = { src: StaticImageData; alt: string; position?: string };
+
+export type GalleryLabels = { open: string; photos: string; view: string; previous: string; next: string; close: string };
 
 export function AwardGallery({
   images,
   title,
   tall = false,
+  labels,
 }: {
   images: Img[];
   title: string;
   tall?: boolean;
+  labels: GalleryLabels;
 }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [index, setIndex] = useState(0);
@@ -49,7 +55,7 @@ export function AwardGallery({
         type="button"
         onClick={open}
         className={`group/img relative block w-full overflow-hidden bg-surface-2 ${tall ? "aspect-[4/5] lg:aspect-auto lg:h-full lg:min-h-[28rem]" : "aspect-[4/3]"}`}
-        aria-label={`Open photos for ${title}`}
+        aria-label={fill(labels.open, { title })}
       >
         <Image
           src={cover.src}
@@ -63,7 +69,7 @@ export function AwardGallery({
         <span aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
         <span className="absolute right-3 bottom-3 inline-flex items-center gap-1.5 rounded-full bg-black/55 px-3 py-1 text-xs text-white backdrop-blur">
           <LuExpand className="size-3.5" aria-hidden="true" />
-          {images.length > 1 ? `${images.length} photos` : "View"}
+          {images.length > 1 ? fill(labels.photos, { count: images.length }) : labels.view}
         </span>
       </button>
 
@@ -97,15 +103,15 @@ export function AwardGallery({
             <div className="flex shrink-0 gap-2">
               {images.length > 1 ? (
                 <>
-                  <button type="button" onClick={() => step(-1)} aria-label="Previous photo" className="grid size-10 place-items-center rounded-full bg-white/10 hover:bg-white/20">
+                  <button type="button" onClick={() => step(-1)} aria-label={labels.previous} className="grid size-10 place-items-center rounded-full bg-white/10 hover:bg-white/20">
                     <LuChevronLeft className="size-5" aria-hidden="true" />
                   </button>
-                  <button type="button" onClick={() => step(1)} aria-label="Next photo" className="grid size-10 place-items-center rounded-full bg-white/10 hover:bg-white/20">
+                  <button type="button" onClick={() => step(1)} aria-label={labels.next} className="grid size-10 place-items-center rounded-full bg-white/10 hover:bg-white/20">
                     <LuChevronRight className="size-5" aria-hidden="true" />
                   </button>
                 </>
               ) : null}
-              <button type="button" onClick={close} aria-label="Close" className="grid size-10 place-items-center rounded-full bg-white/10 hover:bg-white/20">
+              <button type="button" onClick={close} aria-label={labels.close} className="grid size-10 place-items-center rounded-full bg-white/10 hover:bg-white/20">
                 <LuX className="size-5" aria-hidden="true" />
               </button>
             </div>

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { LuCheck, LuCopy } from "react-icons/lu";
 
-export function CopyEmail({ email }: { email: string }) {
+export function CopyEmail({ email, labels }: { email: string; labels: { copy: string; copied: string } }) {
   const [copied, setCopied] = useState(false);
 
   async function copy() {
@@ -23,7 +23,7 @@ export function CopyEmail({ email }: { email: string }) {
       className="inline-flex items-center gap-2 rounded-full border border-line-strong px-5 py-3 text-sm font-medium transition-colors hover:bg-surface-2"
     >
       {copied ? <LuCheck className="size-4 text-accent" aria-hidden="true" /> : <LuCopy className="size-4" aria-hidden="true" />}
-      <span aria-live="polite">{copied ? "Copied!" : "Copy email"}</span>
+      <span aria-live="polite">{copied ? labels.copied : labels.copy}</span>
     </button>
   );
 }
