@@ -12,7 +12,7 @@ export async function Contact() {
   return (
     <section id="contact" aria-labelledby="contact-title" className="py-16 sm:py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div data-reveal data-spot style={{ "--d": "0ms" } as React.CSSProperties} className="card relative isolate overflow-hidden px-6 pt-14 pb-10 sm:px-12 sm:pt-20 sm:pb-14">
+        <div data-reveal data-spot style={{ "--d": "0ms" } as React.CSSProperties} className="card relative isolate overflow-hidden px-5 pt-12 pb-9 sm:px-12 sm:pt-20 sm:pb-14">
           <div aria-hidden className="bg-grid absolute inset-0 -z-10 opacity-70" />
           <div aria-hidden className="glow absolute -top-32 -right-24 -z-10 size-[30rem]" />
 
@@ -43,7 +43,7 @@ export async function Contact() {
           <dl className="mt-12 grid gap-6 border-t border-line pt-8 text-sm sm:grid-cols-2 lg:flex lg:gap-16">
             <div>
               <dt className="flex items-center gap-2 font-mono text-xs text-muted"><LuMail className="size-3.5" aria-hidden="true" /> {c.email}</dt>
-              <dd className="mt-1.5 whitespace-nowrap">
+              <dd className="mt-1.5 [overflow-wrap:anywhere] sm:whitespace-nowrap">
                 <a href={`mailto:${person.email}`} className="hover:text-accent">{person.email}</a>
               </dd>
             </div>

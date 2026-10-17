@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type TouchEvent } from "react";
 import Image, { type StaticImageData } from "next/image";
 import { LuChevronLeft, LuChevronRight, LuExpand, LuX } from "react-icons/lu";
 
@@ -47,6 +47,18 @@ export function AwardGallery({
     return () => dialog.removeEventListener("keydown", onKey);
   }, [images.length, step]);
 
+  // Swipe left/right in the lightbox on touch screens.
+  const swipeX = useRef<number | null>(null);
+  const onTouchStart = (e: TouchEvent) => {
+    swipeX.current = e.touches[0].clientX;
+  };
+  const onTouchEnd = (e: TouchEvent) => {
+    if (swipeX.current === null || images.length < 2) return;
+    const dx = e.changedTouches[0].clientX - swipeX.current;
+    swipeX.current = null;
+    if (Math.abs(dx) > 40) step(dx < 0 ? 1 : -1);
+  };
+
   const current = images[index];
 
   return (
@@ -81,7 +93,7 @@ export function AwardGallery({
         className="m-auto max-h-[92dvh] w-[min(64rem,94vw)] overflow-visible bg-transparent p-0 text-white"
       >
         <div className="relative">
-          <div className="relative h-[min(80dvh,46rem)] w-full">
+          <div className="relative h-[min(80dvh,46rem)] w-full touch-pan-y" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
             <Image
               key={current.src.src}
               src={current.src}

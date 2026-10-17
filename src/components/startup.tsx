@@ -6,6 +6,7 @@ import type { Milestone } from "@/content/profile";
 import { getI18n } from "@/i18n/server";
 import { AwardGallery, type GalleryLabels } from "./award-gallery";
 import { OrgLogo } from "./org-logo";
+import { Rail } from "./rail";
 import { SectionHeading } from "./section-heading";
 import { SourceLink } from "./source-link";
 
@@ -135,7 +136,7 @@ export async function Startup() {
 
         {/* Milestones */}
         <h3 className="mt-14 mb-6 font-mono text-xs tracking-[0.2em] text-muted uppercase">{s.milestones}</h3>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <Rail label={s.milestones} labels={dict.carousel} grid="sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
           {startup.milestones.map((m, i) => (
             <MilestoneCard
               key={m.title}
@@ -144,7 +145,7 @@ export async function Startup() {
               labels={{ sources: s.sources, newTab: dict.opensInNewTab, gallery: dict.gallery }}
             />
           ))}
-        </div>
+        </Rail>
       </div>
     </section>
   );

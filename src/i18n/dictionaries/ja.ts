@@ -125,5 +125,6 @@ export const ja: Dictionary = {
     credits: "Next.js で設計・開発 · Vercel でホスティング。",
     backToTop: "ページの先頭へ",
   },
+  carousel: { previous: "前へ", next: "次へ", goTo: "{total} 件中 {n} 件目へ" },
   opensInNewTab: "（新しいタブで開きます）",
 };

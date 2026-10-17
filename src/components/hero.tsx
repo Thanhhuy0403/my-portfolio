@@ -44,15 +44,25 @@ export async function Hero() {
 
       <div className="mx-auto grid max-w-6xl items-center gap-20 px-4 sm:px-6 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
         <div>
-          <p className="animate-rise inline-flex flex-wrap items-center gap-x-2.5 gap-y-1 rounded-full border border-line bg-surface/70 py-1.5 pr-4 pl-1.5 text-xs text-muted shadow-sm backdrop-blur sm:text-sm">
-            <span className="flex items-center gap-1.5 rounded-full bg-accent-soft px-2 py-0.5 font-medium text-accent">
+          {/* Phones: badge + two clean lines (job, startup) instead of a pill that wraps mid-phrase. */}
+          <p className="animate-rise inline-flex items-start gap-2.5 rounded-2xl border border-line bg-surface/70 py-1.5 pr-4 pl-1.5 text-xs leading-relaxed text-muted shadow-sm backdrop-blur sm:items-center sm:rounded-full sm:text-sm">
+            <span className="flex shrink-0 items-center gap-1.5 rounded-full bg-accent-soft px-2 py-0.5 font-medium text-accent max-sm:mt-[3px] max-sm:p-1.5">
               <span className="animate-pulse-dot size-1.5 rounded-full bg-accent" />
-              {h.now}
+              {/* Phones keep just the live dot so the role fits on one line. */}
+              <span className="max-sm:sr-only">{h.now}</span>
             </span>
-            {h.roleAt} <span className="font-medium text-fg">Ban Vien</span>
-            <span className="text-muted">{h.for}</span> <span className="font-medium text-fg">Bosch</span>
-            <span aria-hidden className="text-line-strong">/</span>
-            {h.coFounder} <span className="font-medium text-fg">FTES</span>
+            <span className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-2.5">
+              <span>
+                {h.roleAt} <span className="font-medium whitespace-nowrap text-fg">Ban Vien</span>{" "}
+                <span className="whitespace-nowrap">
+                  {h.for} <span className="font-medium text-fg">Bosch</span>
+                </span>
+              </span>
+              <span aria-hidden className="hidden text-line-strong sm:inline">/</span>
+              <span>
+                {h.coFounder} <span className="font-medium text-fg">FTES</span>
+              </span>
+            </span>
           </p>
 
           <h1
@@ -155,7 +165,7 @@ export async function Hero() {
           {/* Serial monitor */}
           <div
             aria-hidden
-            className="absolute -bottom-14 -left-3 w-[16.5rem] rounded-xl border border-white/10 bg-[#050a08] p-3 font-mono text-[10.5px] leading-[1.7] text-[#a9bcb1] shadow-2xl shadow-black/40 sm:-left-16 sm:w-[19rem]"
+            className="absolute -bottom-14 -left-3 w-[18rem] rounded-xl border border-white/10 bg-[#050a08] p-3 font-mono text-[10.5px] leading-[1.7] text-[#a9bcb1] shadow-2xl shadow-black/40 sm:-left-16 sm:w-[19rem]"
           >
             <div className="mb-1.5 flex items-center justify-between text-[9.5px] text-[#6f8278]">
               <span>/dev/ttyUSB0 · 115200</span>

@@ -29,9 +29,9 @@ export async function Experience() {
                 aria-hidden
                 className="absolute top-7 -left-[31px] grid size-3.5 place-items-center rounded-full border-2 border-bg bg-accent ring-4 ring-accent-soft sm:-left-[47px]"
               />
-              <article data-spot className="card lift p-6 sm:p-8">
+              <article data-spot className="card lift p-5 sm:p-8">
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                  <div className="flex min-w-0 items-start gap-4">
+                  <div className="flex min-w-0 flex-col gap-4 sm:flex-row sm:items-start">
                     {job.logo ? <OrgLogo logo={job.logo} className="h-12 w-24 sm:h-14 sm:w-28" /> : null}
                     <div className="min-w-0">
                     <h3 className="font-display text-xl font-semibold sm:text-2xl">{job.role}</h3>
@@ -104,8 +104,8 @@ export async function Experience() {
               aria-hidden
               className="absolute top-7 -left-[31px] size-3.5 rounded-full border-2 border-bg bg-copper ring-4 ring-copper-soft sm:-left-[47px]"
             />
-            <article data-spot className="card lift flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
-              <div className="flex gap-4">
+            <article data-spot className="card lift flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+              <div className="flex flex-col gap-4 sm:flex-row">
                 <OrgLogo logo={education.logo} className="size-12 sm:size-14" />
                 <div className="min-w-0">
                   <h3 className="font-display text-lg font-semibold sm:text-xl">{education.degree}</h3>

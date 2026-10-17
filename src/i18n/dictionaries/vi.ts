@@ -126,5 +126,6 @@ export const vi: Dictionary = {
     credits: "Thiết kế & phát triển bằng Next.js · Triển khai trên Vercel.",
     backToTop: "Về đầu trang",
   },
+  carousel: { previous: "Trước", next: "Tiếp", goTo: "Đến mục {n} trên {total}" },
   opensInNewTab: "(mở trong tab mới)",
 };

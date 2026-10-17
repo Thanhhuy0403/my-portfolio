@@ -7,6 +7,7 @@ import { fill } from "@/i18n/format";
 import { getI18n } from "@/i18n/server";
 import { AwardGallery } from "./award-gallery";
 import { OrgLogo } from "./org-logo";
+import { Rail } from "./rail";
 import { SectionHeading } from "./section-heading";
 import { SourceLink } from "./source-link";
 
@@ -111,11 +112,11 @@ export async function Awards() {
           title={t.title}
           description={t.description}
         />
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <Rail label={t.eyebrow} labels={dict.carousel} grid="sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
           {content.awards.map((a, i) => (
             <AwardCard key={a.title} award={a} tall={i === 0} delay={(i % 3) * 90} dict={dict} />
           ))}
-        </div>
+        </Rail>
       </div>
     </section>
   );

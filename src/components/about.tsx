@@ -95,15 +95,17 @@ export async function About() {
               <span className="size-2.5 rounded-full bg-[#28c840]" />
               <span className="ml-3 font-mono text-xs text-muted">main.c — STM32F103</span>
             </div>
-            <pre className="overflow-x-auto p-5 font-mono text-[13px] leading-6 sm:p-6 sm:text-sm">
+            {/* Lines kept under ~40 columns so the snippet fits a phone without sideways scrolling. */}
+            <pre className="overflow-x-auto p-5 font-mono text-[12px] leading-6 sm:p-6 sm:text-sm">
               <code>
-                <span className="text-muted">{"/* toggle the status LED from a timer ISR */"}</span>
+                <span className="text-muted">{"/* LED heartbeat from a timer ISR */"}</span>
                 {"\n"}
-                <span className="text-copper">#define</span> GPIOC_ODR (*(<span className="text-accent">volatile</span> uint32_t *)0x4001100C)
+                <span className="text-copper">#define</span> GPIOC_ODR {"\\"}
+                {"\n    "}(*(<span className="text-accent">volatile</span> uint32_t *)0x4001100C)
                 {"\n\n"}
                 <span className="text-accent">void</span> <span className="text-copper">TIM2_IRQHandler</span>(<span className="text-accent">void</span>) {"{"}
-                {"\n"}  TIM2-&gt;SR &amp;= ~TIM_SR_UIF;   <span className="text-muted">{"// clear update flag"}</span>
-                {"\n"}  GPIOC_ODR ^= (1U &lt;&lt; 13);    <span className="text-muted">{"// PC13 heartbeat"}</span>
+                {"\n  "}TIM2-&gt;SR &amp;= ~TIM_SR_UIF; <span className="text-muted">{"// clear flag"}</span>
+                {"\n  "}GPIOC_ODR ^= 1U &lt;&lt; 13;{"   "}<span className="text-muted">{"// PC13 LED"}</span>
                 {"\n"}
                 {"}"}
               </code>

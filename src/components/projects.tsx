@@ -7,6 +7,7 @@ import type { Dictionary } from "@/i18n/dictionaries/en";
 import { fill } from "@/i18n/format";
 import { getI18n } from "@/i18n/server";
 import { ProjectVisual } from "./project-visuals";
+import { Rail } from "./rail";
 import { SectionHeading } from "./section-heading";
 
 function CaseStudy({ project, index, t }: { project: Project; index: number; t: Dictionary["projects"] }) {
@@ -14,12 +15,12 @@ function CaseStudy({ project, index, t }: { project: Project; index: number; t: 
   return (
     <article
       aria-labelledby={`p-${project.slug}`}
-      className="grid items-center gap-8 lg:grid-cols-12 lg:gap-14"
+      className="grid items-center gap-8 max-sm:content-start max-sm:gap-6 max-sm:rounded-[1.75rem] max-sm:border max-sm:border-line max-sm:bg-surface/60 max-sm:p-2.5 max-sm:pb-6 lg:grid-cols-12 lg:gap-14"
     >
       {/* Visual */}
       <div data-reveal="scale" className={`group relative lg:col-span-7 ${flip ? "lg:order-2" : ""}`}>
-        <div aria-hidden className="glow absolute -inset-4 -z-10 opacity-70 sm:-inset-10" />
-        <div className="bg-dots relative overflow-hidden rounded-[1.75rem] border border-line bg-surface-2/60 p-4 sm:p-7 [perspective:1600px]">
+        <div aria-hidden className="glow absolute -z-10 opacity-70 max-sm:hidden sm:-inset-10" />
+        <div className="bg-dots relative overflow-hidden rounded-[1.75rem] border border-line bg-surface-2/60 p-3 max-sm:rounded-[1.4rem] sm:p-7 [perspective:1600px]">
           <div
             className={`aspect-[16/11] transition-transform duration-700 ease-out-expo will-change-transform sm:aspect-[16/10] lg:[transform:rotateX(6deg)_rotateY(var(--ry))] lg:group-hover:[transform:none] ${flip ? "[--ry:6deg]" : "[--ry:-6deg]"}`}
           >
@@ -51,7 +52,7 @@ function CaseStudy({ project, index, t }: { project: Project; index: number; t: 
       </div>
 
       {/* Copy */}
-      <div data-reveal className={`lg:col-span-5 ${flip ? "lg:order-1" : ""}`} style={{ "--d": "120ms" } as React.CSSProperties}>
+      <div data-reveal className={`max-sm:px-2.5 lg:col-span-5 ${flip ? "lg:order-1" : ""}`} style={{ "--d": "120ms" } as React.CSSProperties}>
         <div className="flex items-center gap-3 font-mono text-xs text-muted">
           <span className="text-accent">0{index + 1}</span>
           <span aria-hidden className="h-px w-6 bg-line-strong" />
@@ -120,11 +121,11 @@ export async function Projects() {
           title={t.title}
           description={t.description}
         />
-        <div className="space-y-24 sm:space-y-32">
+        <Rail label={t.eyebrow} labels={dict.carousel} wide grid="sm:gap-24 lg:gap-32">
           {content.projects.map((p, i) => (
             <CaseStudy key={p.slug} project={p} index={i} t={t} />
           ))}
-        </div>
+        </Rail>
       </div>
     </section>
   );

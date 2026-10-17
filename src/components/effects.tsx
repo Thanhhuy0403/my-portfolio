@@ -85,15 +85,23 @@ export function Effects() {
     };
 
     // ---- Reveal ----
+    const phone = window.matchMedia("(max-width: 639.98px)");
     const io = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
           if (!entry.isIntersecting) continue;
           const el = entry.target as HTMLElement;
-          el.dataset.shown = "true";
-          if (el.dataset.count !== undefined) countUp(el);
-          el.querySelectorAll<HTMLElement>("[data-count]").forEach(countUp);
-          io.unobserve(el);
+          // Cards in a swipe rail reveal together, so the peeking next card is visible before it is swiped in.
+          // (From `sm` up the rail is a grid and cards keep revealing one by one.)
+          const rail = phone.matches ? el.closest("[data-rail]") : null;
+          const group = rail?.querySelectorAll<HTMLElement>("[data-reveal]") ?? [el];
+          for (const item of group) {
+            if (item.dataset.shown) continue;
+            item.dataset.shown = "true";
+            if (item.dataset.count !== undefined) countUp(item);
+            item.querySelectorAll<HTMLElement>("[data-count]").forEach(countUp);
+            io.unobserve(item);
+          }
         }
       },
       { rootMargin: "0px 0px -10% 0px", threshold: 0.12 },

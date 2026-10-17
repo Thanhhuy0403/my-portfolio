@@ -229,7 +229,7 @@ function PlantVisual() {
       }
     >
       <div className="grid h-full grid-cols-[auto_1fr] gap-2.5 bg-surface-2/40 p-3 sm:gap-3 sm:p-4">
-        <div className="flex w-[6.5rem] flex-col items-center justify-center rounded-lg border border-line bg-surface p-2.5 text-center sm:w-32 sm:p-3">
+        <div className="flex w-[5.25rem] flex-col items-center justify-center rounded-lg border border-line bg-surface p-2 text-center sm:w-32 sm:p-3">
           <div className="relative grid size-14 place-items-center sm:size-20">
             <svg viewBox="0 0 36 36" className="absolute inset-0 -rotate-90" aria-hidden="true">
               <circle cx="18" cy="18" r="16" fill="none" stroke="var(--accent)" strokeWidth="1" strokeDasharray="3 3" opacity="0.5" />
@@ -266,7 +266,7 @@ function PlantVisual() {
               <path d="M0 30 C 30 34, 50 26, 80 30 S 130 36, 160 28 S 200 30, 220 26" fill="none" stroke="var(--copper)" strokeWidth="1.4" strokeDasharray="3 3" vectorEffect="non-scaling-stroke" />
             </svg>
           </div>
-          <div className="flex-1 overflow-hidden rounded-lg border border-line bg-[#04110c] p-2.5 font-mono text-[9px] leading-relaxed text-[#9fb3a8] sm:p-3 sm:text-[10px]">
+          <div className="flex-1 overflow-hidden rounded-lg border border-line bg-[#04110c] p-2 font-mono text-[8.5px] leading-relaxed text-[#9fb3a8] sm:p-3 sm:text-[10px]">
             {LOG.map((l, i) => (
               <p key={l.dir} className="animate-line truncate" style={{ animationDelay: `${0.3 + i * 0.35}s` }}>
                 <LuChevronRight className="inline size-3 -translate-y-px text-[#3ee6a0]" aria-hidden="true" /> <span className="text-[#f2b25c]">{l.dir}</span> {l.msg}

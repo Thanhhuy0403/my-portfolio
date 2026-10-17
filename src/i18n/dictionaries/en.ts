@@ -129,6 +129,7 @@ export const en = {
     credits: "Designed & built with Next.js · Hosted on Vercel.",
     backToTop: "Back to top",
   },
+  carousel: { previous: "Previous", next: "Next", goTo: "Go to item {n} of {total}" },
   opensInNewTab: "(opens in a new tab)",
 };
 

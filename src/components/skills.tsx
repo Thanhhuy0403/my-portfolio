@@ -24,6 +24,7 @@ import {
 } from "react-icons/si";
 
 import { getI18n } from "@/i18n/server";
+import { Rail } from "./rail";
 import { SectionHeading } from "./section-heading";
 
 const GROUP_ICONS: Record<string, IconType> = {
@@ -69,7 +70,7 @@ export async function Skills() {
           title={t.title}
         />
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <Rail label={t.eyebrow} labels={dict.carousel} grid="sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
           {skills.map((group, i) => {
             const GroupIcon = GROUP_ICONS[group.key] ?? LuCpu;
             return (
@@ -111,7 +112,7 @@ export async function Skills() {
               </article>
             );
           })}
-        </div>
+        </Rail>
 
         <div
           data-reveal
